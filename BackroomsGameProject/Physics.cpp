@@ -1,5 +1,7 @@
 #include "Physics.h"
 
+std::map<int, physx::PxRigidDynamic*> Physics::physObjects;
+
 void Physics::Init()
 {
 	mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, mDefaultAllocatorCallback, mDefaultErrorCallback);
@@ -40,8 +42,21 @@ void Physics::Init()
 
 
 	static physx::PxReal stackZ = 10.0f;
-	for (physx::PxU32 i = 0; i < 5; i++)
-		createStack(physx::PxTransform(physx::PxVec3(0, 0, stackZ -= 10.0f)), 10, 2.0f);
+
+
+	physx::PxShape* shape = mPhysics->createShape(physx::PxBoxGeometry(2.0f, 2.0f, 2.0f), *mMaterial);
+	physx::PxTransform localTm(physx::PxVec3(physx::PxReal(0) - physx::PxReal(10), physx::PxReal(1), 0) * 2.0f);
+	physx::PxRigidDynamic* body = mPhysics->createRigidDynamic(physx::PxTransform(physx::PxVec3(0, 0, 0)));
+	body->attachShape(*shape);
+	physx::PxRigidBodyExt::updateMassAndInertia(*body, 10.0f);
+	mScene->addActor(*body);
+
+
+	physObjects[totalObjects] = body;
+
+
+	//for (physx::PxU32 i = 0; i < 5; i++)
+		//createStack(physx::PxTransform(physx::PxVec3(0, 0, stackZ -= 10.0f)), 10, 2.0f);
 
 }
 
@@ -49,6 +64,7 @@ void Physics::Simulate(float dt)
 {
 	mScene->simulate(dt);
 	mScene->fetchResults(true);
+
 }
 
 void Physics::Cleanup()

@@ -1,6 +1,10 @@
 #pragma once
 
+#include "PhysicsObject.h"
+
 #include <physx/PxPhysicsAPI.h>
+#include <map>
+#include <iostream>
 
 class Physics
 {
@@ -11,6 +15,8 @@ public:
 	void Simulate(float dt);
 
 	void Cleanup();
+
+	static std::map<int, physx::PxRigidDynamic*> physObjects;
 
 private:
 
@@ -26,8 +32,14 @@ private:
 
 	physx::PxTolerancesScale       mToleranceScale;
 
+
+
+	int totalObjects = 0;
+
 	void createStack(const physx::PxTransform& t, physx::PxU32 size, physx::PxReal halfExtent)
 	{
+
+
 		physx::PxShape* shape = mPhysics->createShape(physx::PxBoxGeometry(halfExtent, halfExtent, halfExtent), *mMaterial);
 		for (physx::PxU32 i = 0; i < size; i++)
 		{
@@ -37,7 +49,11 @@ private:
 				physx::PxRigidDynamic* body = mPhysics->createRigidDynamic(t.transform(localTm));
 				body->attachShape(*shape);
 				physx::PxRigidBodyExt::updateMassAndInertia(*body, 10.0f);
-				mScene->addActor(*body);
+				mScene->addActor(*body);				
+
+
+				physObjects[totalObjects] = body;
+				totalObjects++;
 			}
 		}
 		shape->release();

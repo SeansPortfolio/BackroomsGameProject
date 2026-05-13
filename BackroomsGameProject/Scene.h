@@ -5,6 +5,7 @@
 #include "Resources.h"
 
 #include "Input.h"
+#include "Physics.h"
 
 #include <vector>
 
@@ -24,6 +25,8 @@ public:
 protected:
 
 	std::vector<std::shared_ptr<GameObject>> SceneObjects;
+
+	std::shared_ptr<GameObject> fallingShape;
 
 	Camera SceneCam;
 };

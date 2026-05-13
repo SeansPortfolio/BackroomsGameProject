@@ -44,6 +44,8 @@ Build/
 build-*/
 BackroomsGameProject/Resources/
 x64/
+FileContentIndex/
+v17/
 
 # CMake generated files
 CMakeFiles/

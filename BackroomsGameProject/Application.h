@@ -32,8 +32,6 @@ private:
 
 	bool InitRenderer();
 
-	bool InitPhysics();
-
 	void ToggleWireframe(bool toggle);
 
 	void LoadScene();
@@ -63,7 +61,5 @@ private:
 	Timer GameTimer;
 
 	Input InputManager;
-
-	std::unique_ptr<Physics> PhysicsSystem;
 };
 

@@ -18,7 +18,11 @@ public:
 
 	virtual void Unload() = 0;
 
-	virtual void Update(float dt);
+	void InitPhysics();
+
+	virtual void PhysicsUpdate(float dt);
+
+	virtual void LogicUpdate(float dt);
 
 	virtual void Render(float aspectRatio);
 
@@ -29,5 +33,10 @@ protected:
 	std::shared_ptr<GameObject> fallingShape;
 
 	Camera SceneCam;
+
+private:
+
+	std::unique_ptr<Physics> PhysicsSystem;
+
 };
 

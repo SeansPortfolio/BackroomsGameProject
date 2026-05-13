@@ -21,11 +21,9 @@ void FallingShapesScene::Unload()
 
 }
 
-void FallingShapesScene::Update(float dt)
+void FallingShapesScene::LogicUpdate(float dt)
 {
-
 	auto actor = Physics::physObjects[0];
-
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_F))
 	{
@@ -39,12 +37,8 @@ void FallingShapesScene::Update(float dt)
 		actor->clearForce();
 	}
 
-
-
 	// Get the global pose (position + orientation)
 	physx::PxTransform transform = actor->getGlobalPose();
-
-
 	physx::PxVec3 position = transform.p;
 	auto rotation = transform.q;
 

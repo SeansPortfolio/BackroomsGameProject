@@ -18,12 +18,6 @@ bool Application::Init(int width, int height, const char* name)
 		return false;
 	}
 
-	if (!InitPhysics())
-	{
-
-	}
-
-
 	LoadScene();
 
 	isRunning = true;
@@ -90,13 +84,6 @@ bool Application::InitRenderer()
 	return true;
 }
 
-bool Application::InitPhysics()
-{
-	PhysicsSystem = std::make_unique<Physics>();
-	PhysicsSystem->Init();
-	return true;
-}
-
 void Application::ToggleWireframe(bool toggle)
 {
 	glPolygonMode(GL_FRONT_AND_BACK, toggle ? GL_LINE : GL_FILL);
@@ -108,6 +95,7 @@ void Application::LoadScene()
 
 	Resources::Init();
 	gameScene->Load();
+	gameScene->InitPhysics();
 }
 
 void Application::Run()
@@ -119,8 +107,6 @@ void Application::Run()
 	while (isRunning)
 	{
 		ProcessEvents();
-
-		PhysicsSystem->Simulate(targetFramerate);
 
 		GameTimer.AccumulateTicks();
 		auto timeStep = GameTimer.GetDeltaTime();
@@ -197,7 +183,8 @@ void Application::ProcessEvents()
 
 void Application::Update(float deltaTime)
 {
-	gameScene->Update(deltaTime);
+	gameScene->PhysicsUpdate(deltaTime);
+	gameScene->LogicUpdate(deltaTime);
 }
 
 void Application::Render()
@@ -212,9 +199,6 @@ void Application::Render()
 
 bool Application::Quit()
 {
-	PhysicsSystem->Cleanup();
-
-
 	SDL_DestroyWindow(window);
 	window = NULL;
 

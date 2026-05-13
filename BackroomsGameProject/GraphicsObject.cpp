@@ -25,7 +25,7 @@ void GraphicsObject::SetTexture(std::shared_ptr<Texture> texture)
 
 void GraphicsObject::Update(float dt)
 {
-	Rotation.y += dt * 100;
+
 }
 
 void GraphicsObject::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)

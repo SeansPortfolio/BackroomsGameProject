@@ -91,11 +91,6 @@ void ColoredCubesScene::Update(float dt)
 	this->Scene::Update(dt);
 }
 
-void ColoredCubesScene::Render(float aspectRatio)
-{
-	this->Scene::Render(aspectRatio);
-}
-
 std::shared_ptr<GraphicsObject> ColoredCubesScene::CreateRandomCube()
 {
 	auto cube = std::make_shared<GraphicsObject>();

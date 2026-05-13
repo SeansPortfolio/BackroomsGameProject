@@ -20,8 +20,6 @@ public:
 
 	void Update(float dt);
 
-	void Render(float aspectRatio);
-
 private:
 
 	std::shared_ptr<GraphicsObject> CreateRandomCube();

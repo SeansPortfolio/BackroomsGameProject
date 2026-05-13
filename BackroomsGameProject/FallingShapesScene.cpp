@@ -26,8 +26,24 @@ void FallingShapesScene::Update(float dt)
 
 	auto actor = Physics::physObjects[0];
 
+
+	if (Input::IsKeyDown(KeyCode::KEYCODE_F))
+	{
+		physx::PxTransform transform = actor->getGlobalPose();
+
+		transform.p.x = 0;
+		transform.p.y = 0;
+		transform.p.z = 0;
+
+		actor->setGlobalPose(transform);
+		actor->clearForce();
+	}
+
+
+
 	// Get the global pose (position + orientation)
 	physx::PxTransform transform = actor->getGlobalPose();
+
 
 	physx::PxVec3 position = transform.p;
 	auto rotation = transform.q;
@@ -36,12 +52,6 @@ void FallingShapesScene::Update(float dt)
 	fallingShape->Position.y = position.y;
 	fallingShape->Position.z = position.z;
 
-
-}
-
-void FallingShapesScene::Render(float aspectRatio)
-{
-	this->Scene::Render(aspectRatio);
 
 }
 

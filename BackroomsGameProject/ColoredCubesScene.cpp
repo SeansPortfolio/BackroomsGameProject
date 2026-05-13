@@ -45,7 +45,7 @@ void ColoredCubesScene::Unload()
 
 }
 
-void ColoredCubesScene::Update(float dt)
+void ColoredCubesScene::LogicUpdate(float dt)
 {
 	auto mouseVector = Input::GetMouseMoveVector();
 
@@ -88,7 +88,7 @@ void ColoredCubesScene::Update(float dt)
 		SceneCam.Position -= SceneCam.Up * 100.0f * dt;
 	}
 
-	this->Scene::Update(dt);
+	this->Scene::LogicUpdate(dt);
 }
 
 std::shared_ptr<GraphicsObject> ColoredCubesScene::CreateRandomCube()

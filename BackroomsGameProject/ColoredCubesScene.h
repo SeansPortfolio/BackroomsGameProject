@@ -18,7 +18,7 @@ public:
 
 	void Unload();
 
-	void Update(float dt);
+	void LogicUpdate(float dt);
 
 private:
 

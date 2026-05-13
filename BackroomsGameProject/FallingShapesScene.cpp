@@ -7,7 +7,8 @@ void FallingShapesScene::Load()
 	Resources::Instance->LoadModel("Cube");
 	Resources::Instance->LoadTexture("SolidRed");
 
-	SceneCam.Position = glm::vec3(0, 0, -10);
+	SceneCam.Position = glm::vec3(0, -50, -10);
+	SceneCam.Pitch = 50.0f;
 
 	auto cube = CreatePhysicsCube();
 	SceneObjects.push_back(cube);

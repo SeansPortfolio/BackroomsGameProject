@@ -4,7 +4,22 @@ void FallingShapesScene::Load()
 {
 	Resources::Instance->LoadShader("UnlitTexture");
 	Resources::Instance->LoadModel("Cube");
-	Resources::Instance->LoadTexture("SolidRed");
+
+
+	TextureNames.push_back("SolidBlack");
+	TextureNames.push_back("SolidBlue");
+	TextureNames.push_back("SolidGreen");
+	TextureNames.push_back("SolidPurple");
+	TextureNames.push_back("SolidRed");
+	TextureNames.push_back("SolidYellow");
+	TextureNames.push_back("SolidWhite");
+
+	for (int i = 0; i < TextureNames.size(); i++)
+	{
+		Resources::Instance->LoadTexture(TextureNames[i]);
+	}
+
+
 
 	SceneCam.Position = glm::vec3(0, -50, -10);
 	SceneCam.Pitch = 50.0f;
@@ -22,7 +37,7 @@ void FallingShapesScene::Load()
 				auto physObj = CreatePhysicsObject(glm::vec3(i * 3, j * 3, stackZ));
 
 				physObj->SetMesh(Resources::Instance->GetModel("Cube"));
-				physObj->SetTexture(Resources::Instance->GetTexture("SolidRed"));
+				physObj->SetTexture(Resources::Instance->GetTexture(TextureNames[(i + j) % TextureNames.size()]));
 				physObj->SetShader(Resources::Instance->GetShader("UnlitTexture"));
 
 				SceneObjects.push_back(physObj);

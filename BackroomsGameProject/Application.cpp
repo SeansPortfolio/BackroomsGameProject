@@ -183,6 +183,8 @@ void Application::ProcessEvents()
 
 void Application::Update(float deltaTime)
 {
+	printf("FPS: %f\n", 1 / deltaTime);
+
 	gameScene->PhysicsUpdate(deltaTime);
 	gameScene->LogicUpdate(deltaTime);
 }

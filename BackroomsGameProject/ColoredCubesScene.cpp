@@ -30,7 +30,7 @@ void ColoredCubesScene::Load()
 		Resources::Instance->LoadTexture(TextureNames[i]);
 	}
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		auto cube = CreateRandomCube();
 		SceneObjects.push_back(cube);
@@ -47,6 +47,7 @@ void ColoredCubesScene::Unload()
 
 void ColoredCubesScene::LogicUpdate(float dt)
 {
+
 	this->Scene::LogicUpdate(dt);
 
 	for (int i = 0; i < SceneObjects.size(); i++)
@@ -62,13 +63,13 @@ void ColoredCubesScene::LogicUpdate(float dt)
 	SceneCam.Pitch -= mouseVector.y * 100.0f * dt;
 
 	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (SceneCam.Pitch > 89.0f)
+	if (SceneCam.Pitch > 80.0f)
 	{
-		SceneCam.Pitch = 89.0f;
+		SceneCam.Pitch = 80.0f;
 	}
-	if (SceneCam.Pitch < -89.0f)
+	if (SceneCam.Pitch < -80.0f)
 	{
-		SceneCam.Pitch = -89.0f;
+		SceneCam.Pitch = -80.0f;
 	}
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_W))
@@ -81,11 +82,11 @@ void ColoredCubesScene::LogicUpdate(float dt)
 	}	
 	if (Input::IsKeyDown(KeyCode::KEYCODE_A))
 	{
-		SceneCam.Position -= glm::cross(SceneCam.Forward, SceneCam.Up) * 200.0f * dt;
+		SceneCam.Position -= glm::normalize(glm::cross(SceneCam.Forward, SceneCam.Up)) * 200.0f * dt;
 	}	
 	if (Input::IsKeyDown(KeyCode::KEYCODE_D))
 	{
-		SceneCam.Position += glm::cross(SceneCam.Forward, SceneCam.Up) * 200.0f * dt;
+		SceneCam.Position += glm::normalize(glm::cross(SceneCam.Forward, SceneCam.Up)) * 200.0f * dt;
 	}
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_E))

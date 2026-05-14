@@ -20,7 +20,7 @@ public:
 
 	void Update(float dt);
 
-	void Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
+	void Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 
 private:
 

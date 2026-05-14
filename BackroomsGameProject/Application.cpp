@@ -91,7 +91,7 @@ void Application::ToggleWireframe(bool toggle)
 
 void Application::LoadScene()
 {
-	gameScene = new FallingShapesScene();
+	gameScene = new ColoredCubesScene();
 
 	Resources::Init();
 	gameScene->Load();

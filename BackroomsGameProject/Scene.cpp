@@ -21,11 +21,12 @@ void Scene::LogicUpdate(float dt)
 
 void Scene::Render(float aspectRatio)
 {
+	glm::mat4 model(1.0f);
 	glm::mat4 viewMatrix = SceneCam.GetViewMatrix();
 	glm::mat4 projectionMatrix = SceneCam.GetProjectionMatrix(aspectRatio);
 
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{
-		SceneObjects[i]->Render(viewMatrix, projectionMatrix);
+		SceneObjects[i]->Render(model, viewMatrix, projectionMatrix);
 	}
 }

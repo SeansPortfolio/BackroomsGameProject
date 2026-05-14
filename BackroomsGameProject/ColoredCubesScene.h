@@ -25,5 +25,9 @@ private:
 	std::shared_ptr<GraphicsObject> CreateRandomCube();
 
 	std::vector<const char*> TextureNames;
+
+	std::shared_ptr<GameObject> root;
+
+	std::shared_ptr<GameObject> child;
 };
 

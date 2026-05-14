@@ -52,10 +52,7 @@ void Physics::Init()
 	mScene->addActor(*body);
 
 	physObjects[totalObjects] = body;
-
-	//for (physx::PxU32 i = 0; i < 5; i++)
-		//createStack(physx::PxTransform(physx::PxVec3(0, 0, stackZ -= 10.0f)), 10, 2.0f);
-
+	totalObjects++;
 }
 
 void Physics::Simulate(float dt)

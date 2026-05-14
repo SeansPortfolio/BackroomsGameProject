@@ -14,7 +14,12 @@ GameObject::~GameObject()
 
 glm::mat4 GameObject::GetModelMatrix()
 {
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
+	return GetModelMatrix(glm::mat4(1.0f));
+}
+
+glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent)
+{
+	glm::mat4 modelMatrix = glm::mat4(parent);
 
 	modelMatrix = glm::translate(modelMatrix, Position);
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -23,4 +28,18 @@ glm::mat4 GameObject::GetModelMatrix()
 	modelMatrix = glm::scale(modelMatrix, Scale);
 
 	return modelMatrix;
+}
+
+void GameObject::AddChild(std::shared_ptr<GameObject> child)
+{
+	Children.push_back(child);
+}
+
+void GameObject::Update(float dt)
+{
+	int numChildren = Children.size();
+	for (int i = 0; i < numChildren; i++)
+	{
+		Children[i]->Update(dt);
+	}
 }

@@ -30,13 +30,13 @@ void ColoredCubesScene::Load()
 		Resources::Instance->LoadTexture(TextureNames[i]);
 	}
 
-	SceneCam.Position = glm::vec3(0, 0, 0);
-
 	for (int i = 0; i < 100; i++)
 	{
 		auto cube = CreateRandomCube();
 		SceneObjects.push_back(cube);
 	}
+
+	SceneCam.Position = glm::vec3(0, 0, -10);
 }
 
 void ColoredCubesScene::Unload()
@@ -47,6 +47,15 @@ void ColoredCubesScene::Unload()
 
 void ColoredCubesScene::LogicUpdate(float dt)
 {
+	this->Scene::LogicUpdate(dt);
+
+	for (int i = 0; i < SceneObjects.size(); i++)
+	{
+		SceneObjects[i]->Rotation.y += 100.0f * dt;
+	}
+
+
+
 	auto mouseVector = Input::GetMouseMoveVector();
 
 	SceneCam.Yaw += mouseVector.x * 100.0f * dt;
@@ -88,7 +97,8 @@ void ColoredCubesScene::LogicUpdate(float dt)
 		SceneCam.Position -= SceneCam.Up * 100.0f * dt;
 	}
 
-	this->Scene::LogicUpdate(dt);
+
+
 }
 
 std::shared_ptr<GraphicsObject> ColoredCubesScene::CreateRandomCube()

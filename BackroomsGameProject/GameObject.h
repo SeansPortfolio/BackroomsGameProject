@@ -18,12 +18,21 @@ public:
 
 	glm::mat4 GetModelMatrix();
 
-	virtual void Update(float dt) = 0;
+	glm::mat4 GetModelMatrix(glm::mat4 parent);
 
-	virtual void Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) = 0;
+	virtual void AddChild(std::shared_ptr<GameObject> child);
+
+	virtual void Update(float dt);
+
+	virtual void Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix) = 0;
+
+
+protected:
+
+	std::vector<std::shared_ptr<GameObject>> Children;
+
 
 private:
-
 
 
 

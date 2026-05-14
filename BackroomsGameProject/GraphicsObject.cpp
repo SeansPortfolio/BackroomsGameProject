@@ -25,12 +25,12 @@ void GraphicsObject::SetTexture(std::shared_ptr<Texture> texture)
 
 void GraphicsObject::Update(float dt)
 {
-
+	GameObject::Update(dt);
 }
 
-void GraphicsObject::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void GraphicsObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
-	auto modelMatrix = GetModelMatrix();
+	auto modelMatrix = GetModelMatrix(parentModel);
 
 	shader->Bind();
 
@@ -40,4 +40,10 @@ void GraphicsObject::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
 	texture->Bind(0);
 	mesh->Bind();
+
+	int numChildren = Children.size();
+	for (int i = 0; i < numChildren; i++)
+	{
+		Children[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
+	}
 }

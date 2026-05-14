@@ -1,7 +1,5 @@
 #include "Physics.h"
 
-std::map<int, physx::PxRigidDynamic*> Physics::physObjects;
-
 void Physics::Init()
 {
 	mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, mDefaultAllocatorCallback, mDefaultErrorCallback);
@@ -37,22 +35,14 @@ void Physics::Init()
 	}
 
 	mMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
-	physx::PxRigidStatic* groundPlane = PxCreatePlane(*mPhysics, physx::PxPlane(0, 1, 0, 50), *mMaterial);
+
+	AddGroundCollider();
+}
+
+void Physics::AddGroundCollider()
+{
+	physx::PxRigidStatic* groundPlane = PxCreatePlane(*mPhysics, physx::PxPlane(0, 1, 0, 100), *mMaterial);
 	mScene->addActor(*groundPlane);
-
-
-	static physx::PxReal stackZ = 10.0f;
-
-
-	physx::PxShape* shape = mPhysics->createShape(physx::PxBoxGeometry(2.0f, 2.0f, 2.0f), *mMaterial);
-	physx::PxTransform localTm(physx::PxVec3(physx::PxReal(0) - physx::PxReal(10), physx::PxReal(1), 0) * 2.0f);
-	physx::PxRigidDynamic* body = mPhysics->createRigidDynamic(physx::PxTransform(physx::PxVec3(0, 0, 0)));
-	body->attachShape(*shape);
-	physx::PxRigidBodyExt::updateMassAndInertia(*body, 10.0f);
-	mScene->addActor(*body);
-
-	physObjects[totalObjects] = body;
-	totalObjects++;
 }
 
 void Physics::Simulate(float dt)

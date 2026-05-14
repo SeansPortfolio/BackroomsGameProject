@@ -12,13 +12,11 @@ public:
 
 	void Init();
 
+	void AddGroundCollider();
+
 	void Simulate(float dt);
 
 	void Cleanup();
-
-	static std::map<int, physx::PxRigidDynamic*> physObjects;
-
-private:
 
 	physx::PxDefaultAllocator      mDefaultAllocatorCallback;
 	physx::PxDefaultErrorCallback  mDefaultErrorCallback;
@@ -31,7 +29,5 @@ private:
 	physx::PxMaterial* mMaterial = NULL;
 
 	physx::PxTolerancesScale       mToleranceScale;
-
-	int totalObjects = 0;
 };
 

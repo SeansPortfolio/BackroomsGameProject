@@ -16,8 +16,6 @@ public:
 
 private:
 
-	std::shared_ptr<GraphicsObject> CreatePhysicsCube();
-
 
 };
 

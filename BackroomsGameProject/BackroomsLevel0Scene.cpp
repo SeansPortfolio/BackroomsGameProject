@@ -11,16 +11,21 @@ BackroomsLevel0Scene::~BackroomsLevel0Scene()
 void BackroomsLevel0Scene::Load()
 {
 	Resources::Instance->LoadModel("FloorCeiling");
+	Resources::Instance->LoadModel("Wall");
+	Resources::Instance->LoadModel("DoorFrame");
+
 	Resources::Instance->LoadShader("UnlitTexture");
+
+	int mapSize = 10;
 
 	// create the floor
 	{
 		auto model = Resources::Instance->GetModel("FloorCeiling");
 		auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-		for (int x = 0; x < 5; x++)
+		for (int x = 0; x < mapSize; x++)
 		{
-			for (int z = 0; z < 5; z++)
+			for (int z = 0; z < mapSize; z++)
 			{
 				auto floorTile = std::make_shared<GraphicsObject>();
 				floorTile->Position = glm::vec3(x * 10, 0, z * 10);
@@ -29,13 +34,128 @@ void BackroomsLevel0Scene::Load()
 				floorTile->SetShader(shader);
 
 				SceneObjects.push_back(floorTile);
+
+				auto roofTile = std::make_shared<GraphicsObject>();
+				roofTile->Position = glm::vec3(x * 10, 10, z * 10);
+
+				roofTile->SetModel(model);
+				roofTile->SetShader(shader);
+
+				SceneObjects.push_back(roofTile);
+
 			}
 		}
 	}
 
+	// create the walls
+	{
+		auto model = Resources::Instance->GetModel("Wall");
+		auto shader = Resources::Instance->GetShader("UnlitTexture");
 
+		for (int x = 0; x < mapSize; x++)
+		{
+			auto wallTile = std::make_shared<GraphicsObject>();
+			wallTile->Position = glm::vec3(x * 10, 0, mapSize * 10 - 5.0f);
+			wallTile->Rotation = glm::vec3(0, 90, 0);
 
+			wallTile->SetModel(model);
+			wallTile->SetShader(shader);
 
+			SceneObjects.push_back(wallTile);
+
+			wallTile = std::make_shared<GraphicsObject>();
+			wallTile->Position = glm::vec3(x * 10, 0, -5.0f);
+			wallTile->Rotation = glm::vec3(0, 90, 0);
+
+			wallTile->SetModel(model);
+			wallTile->SetShader(shader);
+
+			SceneObjects.push_back(wallTile);
+		}
+
+		for (int z = 0; z < mapSize; z++)
+		{
+			auto wallTile = std::make_shared<GraphicsObject>();
+			wallTile->Position = glm::vec3(mapSize * 10 - 5.0f, 0, z * 10);
+
+			wallTile->SetModel(model);
+			wallTile->SetShader(shader);
+
+			SceneObjects.push_back(wallTile);
+
+			wallTile = std::make_shared<GraphicsObject>();
+			wallTile->Position = glm::vec3(-5.0f, 0, z * 10);
+
+			wallTile->SetModel(model);
+			wallTile->SetShader(shader);
+
+			SceneObjects.push_back(wallTile);
+		}
+	}
+
+	// create center divider
+	{
+		auto model = Resources::Instance->GetModel("Wall");
+		auto door = Resources::Instance->GetModel("DoorFrame");
+		auto shader = Resources::Instance->GetShader("UnlitTexture");
+
+		int x = 3 * 10;
+		for (int z = 0; z < mapSize; z++)
+		{
+			if (z == 3)
+			{
+				continue;
+			}
+
+			auto wallTile = std::make_shared<GraphicsObject>();
+			wallTile->Position = glm::vec3(x - 5.0f, 0, z * 10);
+
+			wallTile->SetModel(model);
+			wallTile->SetShader(shader);
+
+			SceneObjects.push_back(wallTile);
+		}
+
+		auto doorFrame = std::make_shared<GraphicsObject>();
+		doorFrame->Position = glm::vec3(x - 5.0f, 0, 3 * 10);
+
+		doorFrame->SetModel(door);
+		doorFrame->SetShader(shader);
+
+		//SceneObjects.push_back(doorFrame);
+	}
+
+	// create center divider
+	{
+		auto model = Resources::Instance->GetModel("Wall");
+		auto door = Resources::Instance->GetModel("DoorFrame");
+		auto shader = Resources::Instance->GetShader("UnlitTexture");
+
+		int x = 6 * 10;
+		for (int z = 0; z < mapSize; z++)
+		{
+			if (z == 6)
+			{
+				continue;
+			}
+
+			auto wallTile = std::make_shared<GraphicsObject>();
+			wallTile->Position = glm::vec3(x - 5.0f, 0, z * 10);
+
+			wallTile->SetModel(model);
+			wallTile->SetShader(shader);
+
+			SceneObjects.push_back(wallTile);
+		}
+
+		auto doorFrame = std::make_shared<GraphicsObject>();
+		doorFrame->Position = glm::vec3(x - 5.0f, 0, 6 * 10);
+
+		doorFrame->SetModel(door);
+		doorFrame->SetShader(shader);
+
+		//SceneObjects.push_back(doorFrame);
+	}
 
 }
 

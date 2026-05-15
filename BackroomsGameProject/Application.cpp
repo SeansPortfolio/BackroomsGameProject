@@ -148,6 +148,15 @@ void Application::ProcessEvents()
 				isRunning = false;
 			}
 
+			if (event.key.key == SDLK_Z)
+			{
+				ToggleWireframe(false);
+			}
+			if (event.key.key == SDLK_X)
+			{
+				ToggleWireframe(true);
+			}
+
 			if (event.key.key >= SDLK_A && event.key.key <= SDLK_Z)
 			{
 				auto keyAsKeycode = (KeyCode)(event.key.key - SDLK_A);

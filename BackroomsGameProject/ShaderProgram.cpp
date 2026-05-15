@@ -31,6 +31,11 @@ void ShaderProgram::Bind()
 	glUseProgram(ShaderProgram);
 }
 
+void ShaderProgram::Unbind()
+{
+	glUseProgram(0);
+}
+
 GLuint ShaderProgram::Create(const char* source, GLuint type)
 {
 	GLuint shaderProgram = glCreateShader(type);

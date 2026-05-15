@@ -36,9 +36,12 @@ void GraphicsObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::ma
 	shader->SetInt("image", 0);
 	model->Render();
 
+	shader->Unbind();
+
 	int numChildren = Children.size();
 	for (int i = 0; i < numChildren; i++)
 	{
 		Children[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
 	}
+
 }

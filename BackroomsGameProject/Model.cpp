@@ -23,11 +23,8 @@ void Model::Render()
 
 	for (int i = 0; i < submeshCount; i++)
 	{
-
 		Materials[i]->BindTextures();
 		Meshes[i]->Bind();
 	}
-
-
 }
 

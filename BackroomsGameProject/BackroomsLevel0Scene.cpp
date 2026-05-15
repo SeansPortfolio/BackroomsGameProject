@@ -13,14 +13,29 @@ void BackroomsLevel0Scene::Load()
 	Resources::Instance->LoadModel("FloorCeiling");
 	Resources::Instance->LoadShader("UnlitTexture");
 
-	auto model = Resources::Instance->GetModel("FloorCeiling");
-	auto shader = Resources::Instance->GetShader("UnlitTexture");
+	// create the floor
+	{
+		auto model = Resources::Instance->GetModel("FloorCeiling");
+		auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-	auto floorTile = std::make_shared<GraphicsObject>();
-	floorTile->SetModel(model);
-	floorTile->SetShader(shader);
+		for (int x = 0; x < 5; x++)
+		{
+			for (int z = 0; z < 5; z++)
+			{
+				auto floorTile = std::make_shared<GraphicsObject>();
+				floorTile->Position = glm::vec3(x * 10, 0, z * 10);
 
-	SceneObjects.push_back(floorTile);
+				floorTile->SetModel(model);
+				floorTile->SetShader(shader);
+
+				SceneObjects.push_back(floorTile);
+			}
+		}
+	}
+
+
+
+
 
 }
 

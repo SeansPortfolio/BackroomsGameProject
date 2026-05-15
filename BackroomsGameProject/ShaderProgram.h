@@ -21,6 +21,8 @@ public:
 
 	void Bind();
 
+	void Unbind();
+
 private:
 
 	GLuint Create(const char* source, GLuint type);

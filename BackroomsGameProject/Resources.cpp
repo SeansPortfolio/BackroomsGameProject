@@ -74,9 +74,7 @@ bool Resources::LoadModel(const std::string name)
 	std::vector<glm::vec2> texcoords;
 	std::vector<std::vector<unsigned int>> submeshes;
 	std::vector<std::shared_ptr<Material>> materials;
-
 	std::shared_ptr<Model> model;
-
 
 	if (Models[name] != NULL)
 	{

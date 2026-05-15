@@ -36,8 +36,8 @@ void FallingShapesScene::Load()
 			{
 				auto physObj = CreatePhysicsObject(glm::vec3(i * 3, j * 3, stackZ));
 
-				physObj->SetMesh(Resources::Instance->GetModel("Cube"));
-				physObj->SetTexture(Resources::Instance->GetTexture(TextureNames[(i + j) % TextureNames.size()]));
+				//physObj->SetMesh(Resources::Instance->GetModel("Cube"));
+				//physObj->SetTexture(Resources::Instance->GetTexture(TextureNames[(i + j) % TextureNames.size()]));
 				physObj->SetShader(Resources::Instance->GetShader("UnlitTexture"));
 
 				SceneObjects.push_back(physObj);

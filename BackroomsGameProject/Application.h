@@ -13,6 +13,7 @@
 #include "Input.h"
 
 #include "Scene.h"
+#include "BackroomsLevel0Scene.h"
 #include "ColoredCubesScene.h"
 #include "FallingShapesScene.h"
 

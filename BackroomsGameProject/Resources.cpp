@@ -22,8 +22,8 @@ bool Resources::LoadShader(const std::string name)
 		return false;
 	}
 
-	auto vertexSource = LoadFileText("Resources\\Shaders\\" + name + ".vert");
-	auto fragmentSource = LoadFileText("Resources\\Shaders\\" + name + ".frag");
+	auto vertexSource = LoadFileText("Resources\\Shaders\\" + name, vertexShaderExtension);
+	auto fragmentSource = LoadFileText("Resources\\Shaders\\" + name, fragmentShaderExtension);
 
 	if (vertexSource.empty() || fragmentSource.empty())
 	{
@@ -51,7 +51,7 @@ bool Resources::LoadTexture(const std::string name)
 	}
 
 	int width, height, channels;
-	auto imageData = LoadFileImage("Resources\\Textures\\" + name + ".png", &width, &height, &channels);
+	auto imageData = LoadFileImage("Resources\\Textures\\" + name + textureFileExtension, &width, &height, &channels);
 
 	if (imageData != NULL)
 	{
@@ -72,7 +72,11 @@ bool Resources::LoadModel(const std::string name)
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> texcoords;
-	std::vector<unsigned int> indices;
+	std::vector<std::vector<unsigned int>> submeshes;
+	std::vector<std::shared_ptr<Material>> materials;
+
+	std::shared_ptr<Model> model;
+
 
 	if (Models[name] != NULL)
 	{
@@ -80,12 +84,18 @@ bool Resources::LoadModel(const std::string name)
 		return false;
 	}
 
-	if (LoadObjFile("Resources\\Models\\" + name + ".obj", vertices, normals, texcoords, indices))
+	if (LoadObjFile("Resources\\Models\\" + name + modelFileExtension, vertices, normals, texcoords, submeshes))
 	{
-		auto mesh = std::make_shared<Mesh>();
-		mesh->Create(vertices, normals, texcoords, indices);
+		model = std::make_shared<Model>();
+		model->Create(vertices, normals, texcoords, submeshes);
+		Models[name] = model;
 
-		Models[name] = mesh;
+
+		if (LoadMtlFile("Resources\\Models\\" + name + materialFileExtension, materials))
+		{
+			model->SetMaterials(materials);
+		}
+
 		return true;
 	}
 
@@ -102,14 +112,14 @@ std::shared_ptr<Texture> Resources::GetTexture(const std::string name)
 	return Textures[name];
 }
 
-std::shared_ptr<Mesh> Resources::GetModel(const std::string name)
+std::shared_ptr<Model> Resources::GetModel(const std::string name)
 {
 	return Models[name];
 }
 
-const std::string Resources::LoadFileText(const std::string path)
+const std::string Resources::LoadFileText(const std::string path, const char* fileExtension)
 {
-	std::ifstream FILE(path);
+	std::ifstream FILE(path + fileExtension);
 
 	if (!FILE.is_open())
 	{
@@ -128,7 +138,7 @@ const std::string Resources::LoadFileText(const std::string path)
 	return fileText;
 }
 
-const bool Resources::LoadObjFile(const std::string path, std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texcoords, std::vector<unsigned int>& indices)
+const bool Resources::LoadObjFile(const std::string path, std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texcoords, std::vector<std::vector<unsigned int>>& submeshes)
 {
 	std::ifstream FILE(path);
 
@@ -143,6 +153,7 @@ const bool Resources::LoadObjFile(const std::string path, std::vector<glm::vec3>
 	std::vector<glm::vec3> tempVertices;
 	std::vector<glm::vec3> tempNormals;
 	std::vector<glm::vec2> tempTexcoords;
+	std::vector<unsigned int> tempIndices;
 
 	std::string line;
 	while (std::getline(FILE, line))
@@ -177,6 +188,18 @@ const bool Resources::LoadObjFile(const std::string path, std::vector<glm::vec3>
 
 			tempTexcoords.push_back(texture);
 		}
+
+		if (type == "usemtl")
+		{
+			// when usemtl is flagged, create a new submesh
+			if (tempIndices.size() > 0)
+			{
+				submeshes.push_back(tempIndices);
+				tempIndices.clear();
+			}
+		}
+
+
 		if (type == "f")
 		{
 			// format: f 1/2/3
@@ -191,9 +214,9 @@ const bool Resources::LoadObjFile(const std::string path, std::vector<glm::vec3>
 			auto point2 = SplitFaceString(v2, '/');
 			auto point3 = SplitFaceString(v3, '/');
 
-			indices.push_back(faceCount + 0);
-			indices.push_back(faceCount + 1);
-			indices.push_back(faceCount + 2);
+			tempIndices.push_back(faceCount + 0);
+			tempIndices.push_back(faceCount + 1);
+			tempIndices.push_back(faceCount + 2);
 
 			vertices.push_back(tempVertices[point1[0] - 1]);
 			vertices.push_back(tempVertices[point2[0] - 1]);
@@ -208,6 +231,54 @@ const bool Resources::LoadObjFile(const std::string path, std::vector<glm::vec3>
 			normals.push_back(tempNormals[point3[2] - 1]);
 
 			faceCount += 3;
+		}
+	}
+
+	// end of file, this is the last submesh.
+	submeshes.push_back(tempIndices);
+	tempIndices.clear();
+
+	return true;
+}
+
+const bool Resources::LoadMtlFile(const std::string path, std::vector<std::shared_ptr<Material>>& materials)
+{
+	std::ifstream FILE(path);
+
+	if (!FILE.is_open())
+	{
+		printf("ERROR: File not found: %s\n", path.c_str());
+		return false;
+	}
+
+	std::shared_ptr<Material> currentMaterial;
+
+	std::string line;
+	while (std::getline(FILE, line))
+	{
+		std::istringstream ss(line);
+		std::string type;
+		ss >> type;
+
+		if (type == "newmtl")
+		{
+			currentMaterial = std::make_shared<Material>();
+			materials.push_back(currentMaterial);
+		}
+
+
+
+		if (type == "map_Kd")
+		{
+			auto textureName = line.substr(7, line.length());
+			textureName = textureName.substr(0, textureName.length() - 4);
+
+			auto baseTexture = GetTexture(textureName);
+			if (baseTexture == NULL && LoadTexture(textureName))
+			{
+				baseTexture = GetTexture(textureName);
+				currentMaterial->SetTexture(baseTexture);
+			}
 		}
 	}
 

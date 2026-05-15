@@ -91,7 +91,7 @@ void Application::ToggleWireframe(bool toggle)
 
 void Application::LoadScene()
 {
-	gameScene = new FallingShapesScene();
+	gameScene = new BackroomsLevel0Scene();
 
 	Resources::Init();
 

@@ -8,19 +8,14 @@ GraphicsObject::~GraphicsObject()
 {
 }
 
-void GraphicsObject::SetMesh(std::shared_ptr<Mesh> mesh)
-{
-	this->mesh = mesh;
-}
-
 void GraphicsObject::SetShader(std::shared_ptr<ShaderProgram> shader)
 {
 	this->shader = shader;
 }
 
-void GraphicsObject::SetTexture(std::shared_ptr<Texture> texture)
+void GraphicsObject::SetModel(std::shared_ptr<Model> model)
 {
-	this->texture = texture;
+	this->model = model;
 }
 
 void GraphicsObject::Update(float dt)
@@ -38,8 +33,8 @@ void GraphicsObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::ma
 	shader->SetMat4("View", viewMatrix);
 	shader->SetMat4("Model", modelMatrix);
 
-	texture->Bind(0);
-	mesh->Bind();
+	shader->SetInt("image", 0);
+	model->Render();
 
 	int numChildren = Children.size();
 	for (int i = 0; i < numChildren; i++)

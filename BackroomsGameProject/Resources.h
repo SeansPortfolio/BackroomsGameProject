@@ -30,13 +30,16 @@ public:
 
 	std::shared_ptr<Texture> GetTexture(const std::string);
 
-	std::shared_ptr<Mesh> GetModel(const std::string);
+	std::shared_ptr<Model> GetModel(const std::string);
 
 private:
 
-	const std::string LoadFileText(const std::string);
 
-	const bool LoadObjFile(const std::string, std::vector<glm::vec3>&, std::vector<glm::vec3>&, std::vector<glm::vec2>&, std::vector<unsigned int>&);
+	const std::string LoadFileText(const std::string path, const char* fileExtension);
+
+	const bool LoadObjFile(const std::string path, std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texcoords, std::vector<std::vector<unsigned int>>& submeshes);
+
+	const bool LoadMtlFile(const std::string path, std::vector<std::shared_ptr<Material>>& materials);
 
 	const std::vector<int> SplitFaceString(const std::string&, const char);
 
@@ -46,7 +49,22 @@ private:
 
 	std::map<const std::string, std::shared_ptr<Texture>> Textures;
 
-	std::map<const std::string, std::shared_ptr<Mesh>> Models;
+	std::map<const std::string, std::shared_ptr<Model>> Models;
+
+
+
+
+
+
+
+	const char* modelFileExtension = ".obj";
+
+	const char* materialFileExtension = ".mtl";
+
+	const char* textureFileExtension = ".png";
+
+	const char* vertexShaderExtension = ".vert";
+
+	const char* fragmentShaderExtension = ".frag";
 
 };
-

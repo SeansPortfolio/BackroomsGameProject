@@ -13,6 +13,8 @@ public:
 
 	bool LoadFromSource(const char* vertexShader, const char* fragmentShader);
 
+	void SetInt(const char* name, const int value) const;
+
 	void SetVec3(const char* name, const glm::vec3& value) const;
 
 	void SetMat4(const char* name, const glm::mat4& value) const;

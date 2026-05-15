@@ -108,11 +108,11 @@ std::shared_ptr<GraphicsObject> ColoredCubesScene::CreateRandomCube()
 	auto cubeMesh = Resources::Instance->GetModel("Cube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-	cube->SetMesh(cubeMesh);
+	//cube->SetMesh(cubeMesh);
 	cube->SetShader(shader);
 
 	int randomValue = rand() % 7;
-	cube->SetTexture(Resources::Instance->GetTexture(TextureNames[randomValue]));
+	//cube->SetTexture(Resources::Instance->GetTexture(TextureNames[randomValue]));
 
 	float randX = rand() % 600;
 	float randY = rand() % 600;

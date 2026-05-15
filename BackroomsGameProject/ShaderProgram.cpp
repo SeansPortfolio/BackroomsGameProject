@@ -8,6 +8,12 @@ bool ShaderProgram::LoadFromSource(const char* vertexShaderSrc, const char* frag
 	return Link(vertexShader, fragmentShader);
 }
 
+void ShaderProgram::SetInt(const char* name, const int value) const
+{
+	auto location = glGetUniformLocation(ShaderProgram, name);
+	glUniform1i(location, value);
+}
+
 void ShaderProgram::SetVec3(const char* name, const glm::vec3& value) const
 {
 	auto location = glGetUniformLocation(ShaderProgram, name);

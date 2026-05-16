@@ -1,4 +1,5 @@
 /.vs
-
-
+/BackroomsGameProject/Resources
+/BackroomsGameProject/x64
+/x64
 *.exe

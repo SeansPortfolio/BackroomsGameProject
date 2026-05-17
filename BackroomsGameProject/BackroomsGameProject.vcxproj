@@ -91,6 +91,7 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClCompile Include="BackroomsLevel0Scene.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColoredCubesScene.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="FallingShapesScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsObject.cpp" />
@@ -102,11 +103,13 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +117,7 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClInclude Include="BackroomsLevel0Scene.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColoredCubesScene.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="FallingShapesScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsObject.h" />
@@ -124,11 +128,13 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClInclude Include="Model.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

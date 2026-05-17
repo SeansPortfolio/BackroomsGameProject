@@ -44,6 +44,7 @@ bool Application::InitWindow()
 	{
 		printf("Warning: Unable to set VSync.");
 	}
+
 	//SDL_SetWindowRelativeMouseMode(window, true);
 	//SDL_CaptureMouse(true);
 
@@ -91,7 +92,7 @@ void Application::ToggleWireframe(bool toggle)
 
 void Application::LoadScene()
 {
-	gameScene = new BackroomsLevel0Scene();
+	gameScene = new ColoredCubesScene();
 
 	Resources::Init();
 

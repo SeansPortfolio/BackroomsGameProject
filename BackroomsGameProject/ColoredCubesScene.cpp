@@ -17,19 +17,6 @@ void ColoredCubesScene::Load()
 	Resources::Instance->LoadShader("UnlitTexture");
 	Resources::Instance->LoadModel("Cube");
 
-	TextureNames.push_back("SolidBlack");
-	TextureNames.push_back("SolidBlue");
-	TextureNames.push_back("SolidGreen");
-	TextureNames.push_back("SolidPurple");
-	TextureNames.push_back("SolidRed");
-	TextureNames.push_back("SolidYellow");
-	TextureNames.push_back("SolidWhite");
-
-	for (int i = 0; i < TextureNames.size(); i++)
-	{
-		Resources::Instance->LoadTexture(TextureNames[i]);
-	}
-
 	for (int i = 0; i < 200; i++)
 	{
 		auto cube = CreateRandomCube();
@@ -102,17 +89,14 @@ void ColoredCubesScene::LogicUpdate(float dt)
 
 }
 
-std::shared_ptr<GraphicsObject> ColoredCubesScene::CreateRandomCube()
+std::shared_ptr<GameObject> ColoredCubesScene::CreateRandomCube()
 {
-	auto cube = std::make_shared<GraphicsObject>();
+	auto cube = std::make_shared<GameObject>();
 	auto cubeMesh = Resources::Instance->GetModel("Cube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
-
-	//cube->SetMesh(cubeMesh);
-	cube->SetShader(shader);
+	cube->AddComponent<RendererComponent>(cubeMesh, shader);
 
 	int randomValue = rand() % 7;
-	//cube->SetTexture(Resources::Instance->GetTexture(TextureNames[randomValue]));
 
 	float randX = rand() % 600;
 	float randY = rand() % 600;

@@ -9,6 +9,7 @@
 
 class Component;
 class RendererComponent;
+class TransformComponent;
 
 class GameObject
 {
@@ -49,11 +50,9 @@ protected:
 
 	std::vector<std::shared_ptr<GameObject>> Children;
 
-
 private:
 
 	std::vector<std::shared_ptr<Component>> components;
-
 
 };
 

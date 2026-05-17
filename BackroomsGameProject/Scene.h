@@ -28,11 +28,7 @@ public:
 
 protected:
 
-	std::shared_ptr<PhysicsObject> CreatePhysicsObject(glm::vec3 position);
-
 	std::vector<std::shared_ptr<GameObject>> SceneObjects;
-
-	std::shared_ptr<GameObject> fallingShape;
 
 	Camera SceneCam;
 

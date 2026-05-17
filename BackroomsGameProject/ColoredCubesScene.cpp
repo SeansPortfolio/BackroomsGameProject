@@ -46,7 +46,7 @@ void ColoredCubesScene::LogicUpdate(float dt)
 
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{
-		SceneObjects[i]->Rotation.y += 100.0f * dt;
+		SceneObjects[i]->Transform->Rotation.y += 100.0f * dt;
 	}
 
 	auto mouseVector = Input::GetMouseMoveVector();
@@ -105,17 +105,17 @@ std::shared_ptr<GameObject> ColoredCubesScene::CreateRandomCube()
 	float randY = rand() % 600;
 	float randZ = rand() % 600;
 
-	cube->Position = glm::vec3(randX - 300, randY - 300, randZ - 300);
+	cube->Transform->Position = glm::vec3(randX - 300, randY - 300, randZ - 300);
 
 	randX = rand() % 360;
 	randY = rand() % 360;
 	randZ = rand() % 360;
 
-	cube->Rotation = glm::vec3(randX, randY, randZ);
+	cube->Transform->Rotation = glm::vec3(randX, randY, randZ);
 
 	randX = rand() % 200 / 10.0f + 1.0f;
 
-	cube->Scale = glm::vec3(randX, randX, randX);
+	cube->Transform->Scale = glm::vec3(randX, randX, randX);
 
 	return cube;
 }

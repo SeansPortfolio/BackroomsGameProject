@@ -18,36 +18,18 @@ GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm:
 
 GameObject::GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
-	AddComponent<TransformComponent>(pos, rot, scale);
+	Transform = std::make_unique<TransformComponent>(pos, rot, scale);
+	Transform->Position = pos;
+	Transform->Rotation = rot;
+	Transform->Scale = scale;
 
-	Position = pos;
-	Rotation = rot;
-	Scale = scale;
+
+	//AddComponent<TransformComponent>(pos, rot, scale);
 }
 
 GameObject::~GameObject()
 {
 
-}
-
-
-
-glm::mat4 GameObject::GetModelMatrix()
-{
-	return GetModelMatrix(glm::mat4(1.0f));
-}
-
-glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent)
-{
-	glm::mat4 modelMatrix = glm::mat4(parent);
-
-	modelMatrix = glm::translate(modelMatrix, Position);
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	modelMatrix = glm::scale(modelMatrix, Scale);
-
-	return modelMatrix;
 }
 
 void GameObject::AddChild(std::shared_ptr<GameObject> child)
@@ -72,7 +54,7 @@ void GameObject::Update(float dt)
 
 void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
-	auto modelMatrix = GetModelMatrix(parentModel);
+	auto modelMatrix = Transform->GetModelMatrix(parentModel);
 
 	int numComponents = components.size();
 	for (int i = 0; i < numComponents; i++)

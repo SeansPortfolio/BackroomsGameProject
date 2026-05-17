@@ -1,9 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-#include "GraphicsObject.h"
-#include "PhysicsObject.h"
-
 class FallingShapesScene : public Scene
 {
 public:

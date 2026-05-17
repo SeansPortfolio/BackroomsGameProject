@@ -17,8 +17,7 @@ public:
 
 	void Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 
-private:
-
+	glm::mat4 GetModelMatrix(glm::mat4 parent);
 
 	glm::vec3 Position;
 	glm::vec3 Rotation;

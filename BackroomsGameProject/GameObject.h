@@ -15,20 +15,12 @@ class GameObject
 {
 public:
 
-	glm::vec3 Position;
-	glm::vec3 Rotation;
-	glm::vec3 Scale;
-	
 	GameObject();
 	GameObject(glm::vec3 pos);
 	GameObject(glm::vec3 pos, glm::vec3 rot);
 	GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
 
 	~GameObject();
-
-	glm::mat4 GetModelMatrix();
-
-	glm::mat4 GetModelMatrix(glm::mat4 parent);
 
 	virtual void AddChild(std::shared_ptr<GameObject> child);
 
@@ -42,9 +34,12 @@ public:
 		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
 
 		auto newComponent = std::make_shared<T>(std::forward<Args>(args)...);
+		newComponent->gameObject = this;
 		components.push_back(newComponent);
 		return *newComponent;
 	}
+
+	std::unique_ptr <TransformComponent> Transform;
 
 protected:
 

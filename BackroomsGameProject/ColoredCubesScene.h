@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Scene.h"
-#include "GraphicsObject.h"
 
 #include <cstdlib>
 #include <ctime>

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "PhysicsObject.h"
-
 #include <physx/PxPhysicsAPI.h>
 #include <map>
 #include <iostream>

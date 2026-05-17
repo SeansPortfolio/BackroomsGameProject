@@ -98,9 +98,9 @@ void BackroomsLevel0Scene::Load()
 
 		auto doorFrame = std::make_shared<GameObject>();
 		doorFrame->Position = glm::vec3(x - 5.0f, 0, 3 * 10);
-		doorFrame->AddComponent<RendererComponent>(model, shader);
+		doorFrame->AddComponent<RendererComponent>(door, shader);
 
-		//SceneObjects.push_back(doorFrame);
+		SceneObjects.push_back(doorFrame);
 	}
 
 	// create center divider
@@ -126,9 +126,9 @@ void BackroomsLevel0Scene::Load()
 
 		auto doorFrame = std::make_shared<GameObject>();
 		doorFrame->Position = glm::vec3(x - 5.0f, 0, 6 * 10);
-		doorFrame->AddComponent<RendererComponent>(model, shader);
+		doorFrame->AddComponent<RendererComponent>(door, shader);
 
-		//SceneObjects.push_back(doorFrame);
+		SceneObjects.push_back(doorFrame);
 	}
 
 }

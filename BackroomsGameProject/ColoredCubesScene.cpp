@@ -14,8 +14,15 @@ void ColoredCubesScene::Load()
 {
 	srand(time(0));
 
-	Resources::Instance->LoadShader("UnlitTexture");
-	Resources::Instance->LoadModel("Cube");
+	CubeNames.push_back("BlackCube");
+	CubeNames.push_back("BlueCube");
+	CubeNames.push_back("GreenCube");
+	CubeNames.push_back("OrangeCube");
+	CubeNames.push_back("PinkCube");
+	CubeNames.push_back("PurpleCube");
+	CubeNames.push_back("RedCube");
+	CubeNames.push_back("WhiteCube");
+	CubeNames.push_back("YellowCube");
 
 	for (int i = 0; i < 200; i++)
 	{
@@ -41,8 +48,6 @@ void ColoredCubesScene::LogicUpdate(float dt)
 	{
 		SceneObjects[i]->Rotation.y += 100.0f * dt;
 	}
-
-
 
 	auto mouseVector = Input::GetMouseMoveVector();
 
@@ -92,11 +97,9 @@ void ColoredCubesScene::LogicUpdate(float dt)
 std::shared_ptr<GameObject> ColoredCubesScene::CreateRandomCube()
 {
 	auto cube = std::make_shared<GameObject>();
-	auto cubeMesh = Resources::Instance->GetModel("Cube");
+	auto cubeMesh = Resources::Instance->GetModel(CubeNames[rand() % CubeNames.size()]);
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 	cube->AddComponent<RendererComponent>(cubeMesh, shader);
-
-	int randomValue = rand() % 7;
 
 	float randX = rand() % 600;
 	float randY = rand() % 600;

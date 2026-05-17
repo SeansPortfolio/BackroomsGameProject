@@ -14,6 +14,45 @@ void Resources::Init()
 	Instance = std::make_unique<Resources>();
 }
 
+std::shared_ptr<ShaderProgram> Resources::GetShader(const std::string name)
+{
+	if (Shaders[name] != NULL)
+	{
+		return Shaders[name];
+	}
+	else if (LoadShader(name))
+	{
+		return Shaders[name];
+	}
+	else return NULL;
+}
+
+std::shared_ptr<Texture> Resources::GetTexture(const std::string name)
+{
+	if (Textures[name] != NULL)
+	{
+		return Textures[name];
+	}
+	else if (LoadTexture(name))
+	{
+		return Textures[name];
+	}
+	else return NULL;
+}
+
+std::shared_ptr<Model> Resources::GetModel(const std::string name)
+{
+	if (Models[name] != NULL)
+	{
+		return Models[name];
+	}
+	else if (LoadModel(name))
+	{
+		return Models[name];
+	}
+	else return NULL;
+}
+
 bool Resources::LoadShader(const std::string name)
 {
 	if (Shaders[name] != NULL)
@@ -98,21 +137,6 @@ bool Resources::LoadModel(const std::string name)
 	}
 
 	return false;
-}
-
-std::shared_ptr<ShaderProgram> Resources::GetShader(const std::string name)
-{
-	return Shaders[name];
-}
-
-std::shared_ptr<Texture> Resources::GetTexture(const std::string name)
-{
-	return Textures[name];
-}
-
-std::shared_ptr<Model> Resources::GetModel(const std::string name)
-{
-	return Models[name];
 }
 
 const std::string Resources::LoadFileText(const std::string path, const char* fileExtension)
@@ -264,19 +288,13 @@ const bool Resources::LoadMtlFile(const std::string path, std::vector<std::share
 			materials.push_back(currentMaterial);
 		}
 
-
-
 		if (type == "map_Kd")
 		{
 			auto textureName = line.substr(7, line.length());
 			textureName = textureName.substr(0, textureName.length() - 4);
 
 			auto baseTexture = GetTexture(textureName);
-			if (baseTexture == NULL && LoadTexture(textureName))
-			{
-				baseTexture = GetTexture(textureName);
-				currentMaterial->SetTexture(baseTexture);
-			}
+			currentMaterial->SetTexture(baseTexture);
 		}
 	}
 

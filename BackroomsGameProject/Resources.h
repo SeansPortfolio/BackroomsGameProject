@@ -20,12 +20,6 @@ public:
 
 	static void Init();
 
-	bool LoadShader(const std::string);
-
-	bool LoadTexture(const std::string);
-
-	bool LoadModel(const std::string);
-
 	std::shared_ptr<ShaderProgram> GetShader(const std::string);
 
 	std::shared_ptr<Texture> GetTexture(const std::string);
@@ -34,6 +28,11 @@ public:
 
 private:
 
+	bool LoadShader(const std::string);
+
+	bool LoadTexture(const std::string);
+
+	bool LoadModel(const std::string);
 
 	const std::string LoadFileText(const std::string path, const char* fileExtension);
 

@@ -10,12 +10,6 @@ BackroomsLevel0Scene::~BackroomsLevel0Scene()
 
 void BackroomsLevel0Scene::Load()
 {
-	Resources::Instance->LoadModel("FloorCeiling");
-	Resources::Instance->LoadModel("Wall");
-	Resources::Instance->LoadModel("DoorFrame");
-
-	Resources::Instance->LoadShader("UnlitTexture");
-
 	int mapSize = 10;
 
 	// create the floor

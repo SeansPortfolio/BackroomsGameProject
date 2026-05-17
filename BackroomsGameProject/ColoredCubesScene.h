@@ -23,5 +23,9 @@ public:
 private:
 
 	std::shared_ptr<GameObject> CreateRandomCube();
+
+	std::vector<const char*> CubeNames;
+
+
 };
 

@@ -92,11 +92,10 @@ void Application::ToggleWireframe(bool toggle)
 
 void Application::LoadScene()
 {
-	gameScene = new BackroomsLevel0Scene();
-
 	Resources::Init();
+	Physics::Init();
 
-	gameScene->InitPhysics();
+	gameScene = new BackroomsLevel0Scene();
 	gameScene->Load();
 }
 
@@ -194,8 +193,8 @@ void Application::ProcessEvents()
 
 void Application::Update(float deltaTime)
 {
-	gameScene->PhysicsUpdate(deltaTime);
-	gameScene->LogicUpdate(deltaTime);
+	Physics::Simulate(deltaTime);
+	gameScene->Update(deltaTime);
 }
 
 void Application::Render()
@@ -210,6 +209,8 @@ void Application::Render()
 
 bool Application::Quit()
 {
+	Physics::Quit();
+
 	SDL_DestroyWindow(window);
 	window = NULL;
 

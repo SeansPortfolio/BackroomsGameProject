@@ -5,6 +5,16 @@
 
 class GameObject;
 
+enum class ComponentType
+{
+	Transform,
+	Renderer,
+	Collider,
+	Rigidbody,
+
+};
+
+
 class Component
 {
 public:
@@ -14,11 +24,15 @@ public:
 		gameObject = NULL;
 	}
 
-	virtual void Update(float dt) = 0;
+	virtual void Update(float dt) { }
 
-	virtual void Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix) = 0;
+	virtual void Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix) { }
 
-private:
+	virtual inline ComponentType GetType() const = 0;
+
+	inline bool IsPhysicsType() { return GetType() == ComponentType::Collider || GetType() == ComponentType::Rigidbody; }
+
+protected:
 
 	GameObject* gameObject;
 

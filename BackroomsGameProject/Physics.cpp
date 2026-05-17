@@ -1,32 +1,47 @@
 #include "Physics.h"
 
+std::unique_ptr<PhysicsContainer> Physics::Instance;
+
 void Physics::Init()
 {
-	mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, mDefaultAllocatorCallback, mDefaultErrorCallback);
+	Instance = std::make_unique<PhysicsContainer>();
+	Instance->InitPhysics();
+}
 
-	if (!mFoundation)
-	{
-		throw("PxCreateFoundation Failed.");
-	}
+void Physics::RegisterActor(physx::PxActor* actor)
+{
+	Instance->RegisterActor(actor);
+}
 
-	mPvd = PxCreatePvd(*mFoundation);
+void Physics::Simulate(float dt)
+{
+	Instance->Simulate(dt);
+}
 
-	physx::PxPvdTransport* transport = physx::PxDefaultPvdSocketTransportCreate("127.0.0.1", 5425, 10);
-	mPvd->connect(*transport, physx::PxPvdInstrumentationFlag::eALL);
+void Physics::Quit()
+{
+	Instance->Quit();
+	Instance.release();
+}
 
-	mToleranceScale.length = 100;        // typical length of an object
-	mToleranceScale.speed = 981;         // typical speed of an object, gravity*1s is a reasonable choice
-	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, mToleranceScale, true, mPvd);
+void PhysicsContainer::InitPhysics()
+{
+	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
 
+	gPvd = PxCreatePvd(*gFoundation);
+	physx::PxPvdTransport* transport = physx::PxDefaultPvdSocketTransportCreate(localHost, 5425, 10);
+	gPvd->connect(*transport, physx::PxPvdInstrumentationFlag::eALL);
 
-	physx::PxSceneDesc sceneDesc(mPhysics->getTolerancesScale());
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, physx::PxTolerancesScale(), true, gPvd);
+
+	physx::PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
 	sceneDesc.gravity = physx::PxVec3(0.0f, -9.81f, 0.0f);
-	mDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
-	sceneDesc.cpuDispatcher = mDispatcher;
+	gDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
+	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = physx::PxDefaultSimulationFilterShader;
-	mScene = mPhysics->createScene(sceneDesc);
+	gScene = gPhysics->createScene(sceneDesc);
 
-	physx::PxPvdSceneClient* pvdClient = mScene->getScenePvdClient();
+	physx::PxPvdSceneClient* pvdClient = gScene->getScenePvdClient();
 	if (pvdClient)
 	{
 		pvdClient->setScenePvdFlag(physx::PxPvdSceneFlag::eTRANSMIT_CONSTRAINTS, true);
@@ -34,25 +49,32 @@ void Physics::Init()
 		pvdClient->setScenePvdFlag(physx::PxPvdSceneFlag::eTRANSMIT_SCENEQUERIES, true);
 	}
 
-	mMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
-
-	AddGroundCollider();
+	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 }
 
-void Physics::AddGroundCollider()
+void PhysicsContainer::RegisterActor(physx::PxActor* actor)
 {
-	physx::PxRigidStatic* groundPlane = PxCreatePlane(*mPhysics, physx::PxPlane(0, 1, 0, 100), *mMaterial);
-	mScene->addActor(*groundPlane);
+	gScene->addActor(*actor);
 }
 
-void Physics::Simulate(float dt)
+void PhysicsContainer::Simulate(float dt)
 {
-	mScene->simulate(dt);
-	mScene->fetchResults(true);
-
+	gScene->simulate(dt);
+	gScene->fetchResults(true);
 }
 
-void Physics::Cleanup()
+void PhysicsContainer::Quit()
 {
-	
+	PX_RELEASE(gScene);
+	PX_RELEASE(gDispatcher);
+	PX_RELEASE(gPhysics);
+
+	if (gPvd)
+	{
+		physx::PxPvdTransport* transport = gPvd->getTransport();
+		PX_RELEASE(gPvd);
+		PX_RELEASE(transport);
+	}
+
+	PX_RELEASE(gFoundation);
 }

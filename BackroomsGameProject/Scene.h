@@ -18,11 +18,7 @@ public:
 
 	virtual void Unload() = 0;
 
-	void InitPhysics();
-
-	virtual void PhysicsUpdate(float dt);
-
-	virtual void LogicUpdate(float dt);
+	virtual void Update(float dt);
 
 	virtual void Render(float aspectRatio);
 
@@ -31,10 +27,6 @@ protected:
 	std::vector<std::shared_ptr<GameObject>> SceneObjects;
 
 	Camera SceneCam;
-
-private:
-
-	std::unique_ptr<Physics> PhysicsSystem;
 
 };
 

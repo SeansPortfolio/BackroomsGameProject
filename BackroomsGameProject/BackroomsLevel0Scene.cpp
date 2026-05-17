@@ -131,13 +131,21 @@ void BackroomsLevel0Scene::Load()
 		SceneObjects.push_back(doorFrame);
 	}
 
+	auto model = Resources::Instance->GetModel("RedCube");
+	auto shader = Resources::Instance->GetShader("UnlitTexture");
+
+	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 10, 0));
+	fallingBall->AddComponent<RendererComponent>(model, shader);
+	fallingBall->AddComponent<SphereColliderComponent>(1.0f);
+
+
 }
 
 void BackroomsLevel0Scene::Unload()
 {
 }
 
-void BackroomsLevel0Scene::LogicUpdate(float dt)
+void BackroomsLevel0Scene::Update(float dt)
 {
 	auto mouseVector = Input::GetMouseMoveVector();
 

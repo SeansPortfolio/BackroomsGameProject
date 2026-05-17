@@ -15,7 +15,7 @@ public:
 
 	void Unload();
 
-	void LogicUpdate(float dt);
+	void Update(float dt);
 
 
 

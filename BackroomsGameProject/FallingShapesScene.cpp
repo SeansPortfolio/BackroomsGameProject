@@ -33,9 +33,9 @@ void FallingShapesScene::Unload()
 
 }
 
-void FallingShapesScene::LogicUpdate(float dt)
+void FallingShapesScene::Update(float dt)
 {
-	Scene::LogicUpdate(dt);
+	Scene::Update(dt);
 
 
 	auto mouseVector = Input::GetMouseMoveVector();

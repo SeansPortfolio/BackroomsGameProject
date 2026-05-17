@@ -39,10 +39,10 @@ void ColoredCubesScene::Unload()
 
 }
 
-void ColoredCubesScene::LogicUpdate(float dt)
+void ColoredCubesScene::Update(float dt)
 {
 
-	this->Scene::LogicUpdate(dt);
+	this->Scene::Update(dt);
 
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{

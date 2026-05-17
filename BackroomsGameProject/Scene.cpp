@@ -1,17 +1,6 @@
 #include "Scene.h"
 
-void Scene::InitPhysics()
-{
-	PhysicsSystem = std::make_unique<Physics>();
-	PhysicsSystem->Init();
-}
-
-void Scene::PhysicsUpdate(float dt)
-{
-	PhysicsSystem->Simulate(dt);
-}
-
-void Scene::LogicUpdate(float dt)
+void Scene::Update(float dt)
 {
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{

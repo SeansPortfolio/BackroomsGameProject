@@ -89,8 +89,10 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BackroomsLevel0Scene.cpp" />
+    <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColoredCubesScene.cpp" />
+    <ClCompile Include="DynamicBodyComponent.cpp" />
     <ClCompile Include="FallingShapesScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
@@ -104,6 +106,8 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SphereColliderComponent.cpp" />
+    <ClCompile Include="StaticBodyComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -112,9 +116,11 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="BackroomsLevel0Scene.h" />
+    <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColoredCubesScene.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DynamicBodyComponent.h" />
     <ClInclude Include="FallingShapesScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IndexBuffer.h" />
@@ -127,6 +133,8 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SphereColliderComponent.h" />
+    <ClInclude Include="StaticBodyComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TransformComponent.h" />

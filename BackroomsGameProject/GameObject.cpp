@@ -5,7 +5,6 @@ GameObject::GameObject() : GameObject(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), gl
 
 }
 
-
 GameObject::GameObject(glm::vec3 pos) : GameObject(pos, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1))
 {
 
@@ -19,12 +18,7 @@ GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm:
 GameObject::GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
 	Transform = std::make_unique<TransformComponent>(pos, rot, scale);
-	Transform->Position = pos;
-	Transform->Rotation = rot;
-	Transform->Scale = scale;
-
-
-	//AddComponent<TransformComponent>(pos, rot, scale);
+	Actor = NULL;
 }
 
 GameObject::~GameObject()
@@ -39,10 +33,10 @@ void GameObject::AddChild(std::shared_ptr<GameObject> child)
 
 void GameObject::Update(float dt)
 {
-	int numComponents = components.size();
+	int numComponents = Components.size();
 	for (int i = 0; i < numComponents; i++)
 	{
-		components[i]->Update(dt);
+		Components[i]->Update(dt);
 	}
 
 	int numChildren = Children.size();
@@ -56,10 +50,10 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 {
 	auto modelMatrix = Transform->GetModelMatrix(parentModel);
 
-	int numComponents = components.size();
+	int numComponents = Components.size();
 	for (int i = 0; i < numComponents; i++)
 	{
-		components[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
+		Components[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
 	}
 
 	int numChildren = Children.size();
@@ -67,4 +61,12 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 	{
 		Children[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
 	}
+}
+
+void GameObject::RegeneratePhysics()
+{
+
+
+
+
 }

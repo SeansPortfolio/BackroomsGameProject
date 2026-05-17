@@ -1,31 +1,54 @@
 #pragma once
 
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+
 #include <physx/PxPhysicsAPI.h>
 #include <map>
 #include <iostream>
+
+class PhysicsContainer;
 
 class Physics
 {
 public:
 
-	void Init();
+	static void Init();
 
-	void AddGroundCollider();
+	static void RegisterActor(physx::PxActor* actor);
+
+	static void Simulate(float dt);
+
+	static void Quit();
+
+private:
+
+	static std::unique_ptr<PhysicsContainer> Instance;
+
+};
+
+class PhysicsContainer
+{
+private:
+
+	void InitPhysics();
+
+	void RegisterActor(physx::PxActor* actor);
 
 	void Simulate(float dt);
 
-	void Cleanup();
+	void Quit();
 
-	physx::PxDefaultAllocator      mDefaultAllocatorCallback;
-	physx::PxDefaultErrorCallback  mDefaultErrorCallback;
+	physx::PxDefaultAllocator		gAllocator;
+	physx::PxDefaultErrorCallback	gErrorCallback;
+	physx::PxFoundation* gFoundation = NULL;
+	physx::PxPhysics* gPhysics = NULL;
+	physx::PxDefaultCpuDispatcher* gDispatcher = NULL;
+	physx::PxScene* gScene = NULL;
+	physx::PxMaterial* gMaterial = NULL;
+	physx::PxPvd* gPvd = NULL;
 
-	physx::PxFoundation* mFoundation = NULL;
-	physx::PxPvd* mPvd = NULL;
-	physx::PxPhysics* mPhysics = NULL;
-	physx::PxScene* mScene = NULL;
-	physx::PxDefaultCpuDispatcher* mDispatcher = NULL;
-	physx::PxMaterial* mMaterial = NULL;
+	const char* localHost = "127.0.0.1";
 
-	physx::PxTolerancesScale       mToleranceScale;
+	friend class Physics;
 };
-

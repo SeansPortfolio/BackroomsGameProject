@@ -3,9 +3,12 @@
 #include <memory>
 #include <vector>
 
+#include "Physics.h"
+
 #include "Component.h"
 #include "RendererComponent.h"
 #include "TransformComponent.h"
+#include "SphereColliderComponent.h"
 
 class Component;
 class RendererComponent;
@@ -19,7 +22,6 @@ public:
 	GameObject(glm::vec3 pos);
 	GameObject(glm::vec3 pos, glm::vec3 rot);
 	GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
-
 	~GameObject();
 
 	virtual void AddChild(std::shared_ptr<GameObject> child);
@@ -35,19 +37,25 @@ public:
 
 		auto newComponent = std::make_shared<T>(std::forward<Args>(args)...);
 		newComponent->gameObject = this;
-		components.push_back(newComponent);
+		Components.push_back(newComponent);
+
+		if (newComponent->IsPhysicsType())
+		{
+			RegeneratePhysics();
+		}
+
 		return *newComponent;
 	}
 
 	std::unique_ptr <TransformComponent> Transform;
 
-protected:
+private:
+
+	void RegeneratePhysics();
 
 	std::vector<std::shared_ptr<GameObject>> Children;
 
-private:
+	std::vector<std::shared_ptr<Component>> Components;
 
-	std::vector<std::shared_ptr<Component>> components;
-
+	physx::PxRigidActor* Actor;
 };
-

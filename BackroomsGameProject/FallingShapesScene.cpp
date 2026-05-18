@@ -2,8 +2,18 @@
 
 void FallingShapesScene::Load()
 {
-	SceneCam.Position = glm::vec3(0, -50, -10);
+	SceneCam.Position = glm::vec3(0, 0, -10);
 	SceneCam.Pitch = 50.0f;
+
+	CubeNames.push_back("BlackCube");
+	CubeNames.push_back("BlueCube");
+	CubeNames.push_back("GreenCube");
+	CubeNames.push_back("OrangeCube");
+	CubeNames.push_back("PinkCube");
+	CubeNames.push_back("PurpleCube");
+	CubeNames.push_back("RedCube");
+	CubeNames.push_back("WhiteCube");
+	CubeNames.push_back("YellowCube");
 
 	int stackZ = 0;
 	for (int i = 0; i < 5; i++)
@@ -13,13 +23,8 @@ void FallingShapesScene::Load()
 		{
 			for (int j = 0; j < size - i; j++)
 			{
-				//auto physObj = CreatePhysicsObject(glm::vec3(i * 3, j * 3, stackZ));
-
-				//physObj->SetMesh(Resources::Instance->GetModel("Cube"));
-				//physObj->SetTexture(Resources::Instance->GetTexture(TextureNames[(i + j) % TextureNames.size()]));
-				//physObj->SetShader(Resources::Instance->GetShader("UnlitTexture"));
-
-				//SceneObjects.push_back(physObj);
+				auto cube = CreateRandomCube(glm::vec3(i * 3, j * 3 + 50.0f, stackZ));
+				SceneObjects.push_back(cube);
 			}
 		}
 
@@ -70,4 +75,21 @@ void FallingShapesScene::Update(float dt)
 		SceneCam.Position += glm::normalize(glm::cross(SceneCam.Forward, SceneCam.Up)) * 200.0f * dt;
 	}
 
+}
+
+std::shared_ptr<GameObject> FallingShapesScene::CreateRandomCube(glm::vec3 pos)
+{
+	auto cube = std::make_shared<GameObject>(pos);
+
+	auto cubeMesh = Resources::Instance->GetModel(CubeNames[rand() % CubeNames.size()]);
+	auto shader = Resources::Instance->GetShader("UnlitTexture");
+	cube->AddComponent<RendererComponent>(cubeMesh, shader);
+	cube->AddComponent<DynamicRigidbodyComponent>();
+
+	float randX = rand() % 600;
+	float randY = rand() % 600;
+	float randZ = rand() % 600;
+
+
+	return cube;
 }

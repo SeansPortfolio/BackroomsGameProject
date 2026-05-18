@@ -13,7 +13,9 @@ public:
 
 private:
 
-	std::vector<const char*> TextureNames;
+	std::shared_ptr<GameObject> CreateRandomCube(glm::vec3 pos);
+
+	std::vector<const char*> CubeNames;
 
 };
 

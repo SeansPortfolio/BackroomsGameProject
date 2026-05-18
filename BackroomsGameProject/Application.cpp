@@ -95,7 +95,7 @@ void Application::LoadScene()
 	Resources::Init();
 	Physics::Init();
 
-	gameScene = new BackroomsLevel0Scene();
+	gameScene = new FallingShapesScene();
 	gameScene->Load();
 }
 

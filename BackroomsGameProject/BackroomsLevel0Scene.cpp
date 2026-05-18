@@ -134,9 +134,11 @@ void BackroomsLevel0Scene::Load()
 	auto model = Resources::Instance->GetModel("RedCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 10, 0));
+	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 20, 0));
 	fallingBall->AddComponent<RendererComponent>(model, shader);
-	fallingBall->AddComponent<SphereColliderComponent>(1.0f);
+	SceneObjects.push_back(fallingBall);
+
+	//fallingBall->AddComponent<DynamicRigidbodyComponent>();
 
 
 }

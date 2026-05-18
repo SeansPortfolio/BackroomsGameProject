@@ -21,6 +21,20 @@ public:
 
 	static void Quit();
 
+	static physx::PxBoxGeometry CreateBoxGeometry(float halfExtentX, float halfExtentY, float halfExtentZ);
+
+	static physx::PxShape* CreateShape(physx::PxGeometry* geometry);
+
+	static physx::PxShape* CreateShape(physx::PxGeometry* geometry, physx::PxMaterial* material);
+
+	static physx::PxRigidDynamic* CreateRigidDynamic(glm::vec3 pos, glm::vec3 rot);
+
+	static physx::PxVec3 ConvertPosition(glm::vec3 pos);
+
+	static glm::vec3 ConvertPosition(physx::PxVec3 pos);
+
+	static physx::PxQuat ConvertRotation(glm::vec3 rot);
+
 private:
 
 	static std::unique_ptr<PhysicsContainer> Instance;
@@ -38,6 +52,11 @@ private:
 	void Simulate(float dt);
 
 	void Quit();
+
+	physx::PxShape* CreateShape(physx::PxGeometry* geometry, physx::PxMaterial* material);
+
+	physx::PxRigidDynamic* CreateRigidDynamic(physx::PxTransform transform);
+
 
 	physx::PxDefaultAllocator		gAllocator;
 	physx::PxDefaultErrorCallback	gErrorCallback;

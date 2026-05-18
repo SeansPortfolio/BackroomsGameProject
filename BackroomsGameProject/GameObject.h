@@ -8,7 +8,7 @@
 #include "Component.h"
 #include "RendererComponent.h"
 #include "TransformComponent.h"
-#include "SphereColliderComponent.h"
+#include "DynamicRigidbodyComponent.h"
 
 class Component;
 class RendererComponent;
@@ -39,11 +39,6 @@ public:
 		newComponent->gameObject = this;
 		Components.push_back(newComponent);
 
-		if (newComponent->IsPhysicsType())
-		{
-			RegeneratePhysics();
-		}
-
 		return *newComponent;
 	}
 
@@ -51,11 +46,7 @@ public:
 
 private:
 
-	void RegeneratePhysics();
-
 	std::vector<std::shared_ptr<GameObject>> Children;
 
 	std::vector<std::shared_ptr<Component>> Components;
-
-	physx::PxRigidActor* Actor;
 };

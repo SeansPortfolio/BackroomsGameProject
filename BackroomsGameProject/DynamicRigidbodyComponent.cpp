@@ -1,0 +1,28 @@
+#include "DynamicRigidbodyComponent.h"
+
+DynamicRigidbodyComponent::DynamicRigidbodyComponent()
+{
+	physx::PxBoxGeometry box = Physics::CreateBoxGeometry(0.5f, 0.5f, 0.5f);
+	physx::PxShape* shape = Physics::CreateShape(&box);
+
+	body = Physics::CreateRigidDynamic(
+		gameObject->Transform->Position,
+		gameObject->Transform->Rotation);
+
+	body->attachShape(*shape);
+	shape->release();
+
+}
+
+DynamicRigidbodyComponent::~DynamicRigidbodyComponent()
+{
+
+
+}
+
+void DynamicRigidbodyComponent::Update(float dt)
+{
+	auto globalPos = body->getGlobalPose();
+	gameObject->Transform->Position = Physics::ConvertPosition(globalPos.p);
+}
+

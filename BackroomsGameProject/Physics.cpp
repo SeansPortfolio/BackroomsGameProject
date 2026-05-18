@@ -24,6 +24,43 @@ void Physics::Quit()
 	Instance.release();
 }
 
+physx::PxBoxGeometry Physics::CreateBoxGeometry(float halfExtentX, float halfExtentY, float halfExtentZ)
+{
+	return physx::PxBoxGeometry(halfExtentX, halfExtentY, halfExtentZ);
+}
+
+physx::PxShape* Physics::CreateShape(physx::PxGeometry* geometry)
+{
+	return Instance->CreateShape(geometry, NULL);
+}
+
+physx::PxShape* Physics::CreateShape(physx::PxGeometry* geometry, physx::PxMaterial* material)
+{
+	return Instance->CreateShape(geometry, material);
+}
+
+physx::PxRigidDynamic* Physics::CreateRigidDynamic(glm::vec3 pos, glm::vec3 rot)
+{
+	physx::PxTransform localTm(Physics::ConvertPosition(pos), Physics::ConvertRotation(rot));
+	physx::PxRigidDynamic* body = Instance->CreateRigidDynamic(localTm);
+	return body;
+}
+
+physx::PxVec3 Physics::ConvertPosition(glm::vec3 pos)
+{
+	return physx::PxVec3(pos.x, pos.y, pos.z);
+}
+
+glm::vec3 Physics::ConvertPosition(physx::PxVec3 pos)
+{
+	return glm::vec3(pos.x, pos.y, pos.z);
+}
+
+physx::PxQuat Physics::ConvertRotation(glm::vec3 rot)
+{
+	return physx::PxQuat();
+}
+
 void PhysicsContainer::InitPhysics()
 {
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
@@ -77,4 +114,19 @@ void PhysicsContainer::Quit()
 	}
 
 	PX_RELEASE(gFoundation);
+}
+
+physx::PxShape* PhysicsContainer::CreateShape(physx::PxGeometry* geometry, physx::PxMaterial* material)
+{
+	if (material == NULL)
+	{
+		material = gMaterial;
+	}
+
+	return gPhysics->createShape(*geometry, *gMaterial);
+}
+
+physx::PxRigidDynamic* PhysicsContainer::CreateRigidDynamic(physx::PxTransform transform)
+{
+	return gPhysics->createRigidDynamic(transform);
 }

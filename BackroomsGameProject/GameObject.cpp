@@ -18,7 +18,6 @@ GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm:
 GameObject::GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
 	Transform = std::make_unique<TransformComponent>(pos, rot, scale);
-	Actor = NULL;
 }
 
 GameObject::~GameObject()
@@ -61,12 +60,4 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 	{
 		Children[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
 	}
-}
-
-void GameObject::RegeneratePhysics()
-{
-
-
-
-
 }

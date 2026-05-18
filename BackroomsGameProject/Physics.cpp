@@ -68,6 +68,28 @@ physx::PxQuat Physics::ConvertRotation(glm::vec3 rot)
 	return physx::PxQuat();
 }
 
+glm::vec3 Physics::ConvertRotation(physx::PxQuat rot)
+{
+	glm::vec3 angles;
+	const float deliciousPI = 3.1415f;
+
+	double sinr_cosp = 2 * (rot.w * rot.x + rot.y * rot.z);
+	double cosr_cosp = 1 - 2 * (rot.x * rot.x + rot.y * rot.y);
+	angles.x = glm::degrees(std::atan2(sinr_cosp, cosr_cosp));
+
+	// Pitch (y-axis rotation)
+	double sinp = std::sqrt(1 + 2 * (rot.w * rot.y - rot.x * rot.z));
+	double cosp = std::sqrt(1 - 2 * (rot.w * rot.y - rot.x * rot.z));
+	angles.y = glm::degrees(2 * std::atan2(sinp, cosp) - deliciousPI / 2);
+
+	// Yaw (z-axis rotation)
+	double siny_cosp = 2 * (rot.w * rot.z + rot.x * rot.y);
+	double cosy_cosp = 1 - 2 * (rot.y * rot.y + rot.z * rot.z);
+	angles.z = glm::degrees(std::atan2(siny_cosp, cosy_cosp));
+
+	return angles;
+}
+
 void PhysicsContainer::InitPhysics()
 {
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);

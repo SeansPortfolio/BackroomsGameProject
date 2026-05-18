@@ -24,5 +24,6 @@ void DynamicRigidbodyComponent::Update(float dt)
 {
 	auto globalPos = body->getGlobalPose();
 	gameObject->Transform->Position = Physics::ConvertPosition(globalPos.p);
+	gameObject->Transform->Rotation = Physics::ConvertRotation(globalPos.q);
 }
 

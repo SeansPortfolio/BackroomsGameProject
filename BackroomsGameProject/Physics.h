@@ -37,6 +37,8 @@ public:
 
 	static physx::PxQuat ConvertRotation(glm::vec3 rot);
 
+	static glm::vec3 ConvertRotation(physx::PxQuat rot);
+
 private:
 
 	static std::unique_ptr<PhysicsContainer> Instance;

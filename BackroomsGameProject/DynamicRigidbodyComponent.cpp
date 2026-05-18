@@ -2,7 +2,7 @@
 
 DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject) : Component(gameObject)
 {
-	physx::PxBoxGeometry box = Physics::CreateBoxGeometry(0.5f, 0.5f, 0.5f);
+	physx::PxBoxGeometry box = Physics::CreateBoxGeometry(1.0f, 1.0f, 1.0f);
 	physx::PxShape* shape = Physics::CreateShape(&box);
 
 	body = Physics::CreateRigidDynamic(

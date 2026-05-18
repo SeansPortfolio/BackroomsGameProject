@@ -29,6 +29,8 @@ public:
 
 	static physx::PxRigidDynamic* CreateRigidDynamic(glm::vec3 pos, glm::vec3 rot);
 
+	static physx::PxRigidStatic* CreateRigidStatic(glm::vec3 pos, glm::vec3 rot);
+
 	static physx::PxVec3 ConvertPosition(glm::vec3 pos);
 
 	static glm::vec3 ConvertPosition(physx::PxVec3 pos);
@@ -56,6 +58,8 @@ private:
 	physx::PxShape* CreateShape(physx::PxGeometry* geometry, physx::PxMaterial* material);
 
 	physx::PxRigidDynamic* CreateRigidDynamic(physx::PxTransform transform);
+
+	physx::PxRigidStatic* CreateRigidStatic(physx::PxTransform transform);
 
 
 	physx::PxDefaultAllocator		gAllocator;

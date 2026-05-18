@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "RendererComponent.h"
 #include "TransformComponent.h"
+#include "StaticRigidbodyComponent.h"
 #include "DynamicRigidbodyComponent.h"
 
 class Component;

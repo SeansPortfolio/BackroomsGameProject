@@ -24,12 +24,14 @@ void BackroomsLevel0Scene::Load()
 				auto floorTile = std::make_shared<GameObject>();
 				floorTile->Transform->Position = glm::vec3(x * 10, 0, z * 10);
 				floorTile->AddComponent<RendererComponent>(model, shader);
+				floorTile->AddComponent<StaticRigidbodyComponent>();
 
 				SceneObjects.push_back(floorTile);
 
 				auto roofTile = std::make_shared<GameObject>();
 				roofTile->Transform->Position = glm::vec3(x * 10, 10, z * 10);
 				roofTile->AddComponent<RendererComponent>(model, shader);
+				roofTile->AddComponent<StaticRigidbodyComponent>();
 
 				SceneObjects.push_back(roofTile);
 
@@ -134,11 +136,16 @@ void BackroomsLevel0Scene::Load()
 	auto model = Resources::Instance->GetModel("RedCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 20, 0));
+	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 40, 0));
 	fallingBall->AddComponent<RendererComponent>(model, shader);
+	fallingBall->AddComponent<DynamicRigidbodyComponent>();
 	SceneObjects.push_back(fallingBall);
 
+	fallingBall = std::make_shared<GameObject>(glm::vec3(0, 50, 0));
+	fallingBall->AddComponent<RendererComponent>(model, shader);
 	fallingBall->AddComponent<DynamicRigidbodyComponent>();
+
+	SceneObjects.push_back(fallingBall);
 
 
 }

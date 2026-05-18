@@ -46,6 +46,13 @@ physx::PxRigidDynamic* Physics::CreateRigidDynamic(glm::vec3 pos, glm::vec3 rot)
 	return body;
 }
 
+physx::PxRigidStatic* Physics::CreateRigidStatic(glm::vec3 pos, glm::vec3 rot)
+{
+	physx::PxTransform localTm(Physics::ConvertPosition(pos));
+	physx::PxRigidStatic* body = Instance->CreateRigidStatic(localTm);
+	return body;
+}
+
 physx::PxVec3 Physics::ConvertPosition(glm::vec3 pos)
 {
 	return physx::PxVec3(pos.x, pos.y, pos.z);
@@ -86,7 +93,11 @@ void PhysicsContainer::InitPhysics()
 		pvdClient->setScenePvdFlag(physx::PxPvdSceneFlag::eTRANSMIT_SCENEQUERIES, true);
 	}
 
-	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
+	gMaterial = gPhysics->createMaterial(0.75f, 0.8f, 0.2f);
+
+
+	physx::PxRigidStatic* groundPlane = PxCreatePlane(*gPhysics, physx::PxPlane(0, 1, 0, 0), *gMaterial);
+	gScene->addActor(*groundPlane);
 }
 
 void PhysicsContainer::RegisterActor(physx::PxActor* actor)
@@ -129,6 +140,13 @@ physx::PxShape* PhysicsContainer::CreateShape(physx::PxGeometry* geometry, physx
 physx::PxRigidDynamic* PhysicsContainer::CreateRigidDynamic(physx::PxTransform transform)
 {
 	auto actor = gPhysics->createRigidDynamic(transform);
+	gScene->addActor(*actor);
+	return actor;
+}
+
+physx::PxRigidStatic* PhysicsContainer::CreateRigidStatic(physx::PxTransform transform)
+{
+	auto actor = gPhysics->createRigidStatic(transform);
 	gScene->addActor(*actor);
 	return actor;
 }

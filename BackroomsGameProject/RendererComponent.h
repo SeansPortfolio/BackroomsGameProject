@@ -9,7 +9,7 @@ class RendererComponent : public Component
 {
 public:
 
-	RendererComponent(std::shared_ptr<Model> model, std::shared_ptr<ShaderProgram> shader);
+	RendererComponent(GameObject* gameObject, std::shared_ptr<Model> model, std::shared_ptr<ShaderProgram> shader);
 
 	virtual void Update(float dt);
 

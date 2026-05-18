@@ -35,8 +35,7 @@ public:
 	{
 		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
 
-		auto newComponent = std::make_shared<T>(std::forward<Args>(args)...);
-		newComponent->gameObject = this;
+		auto newComponent = std::make_shared<T>(this, std::forward<Args>(args)...);
 		Components.push_back(newComponent);
 
 		return *newComponent;

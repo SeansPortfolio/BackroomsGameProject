@@ -17,7 +17,7 @@ GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm:
 
 GameObject::GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
-	Transform = std::make_unique<TransformComponent>(pos, rot, scale);
+	Transform = std::make_unique<TransformComponent>(this, pos, rot, scale);
 }
 
 GameObject::~GameObject()

@@ -138,7 +138,7 @@ void BackroomsLevel0Scene::Load()
 	fallingBall->AddComponent<RendererComponent>(model, shader);
 	SceneObjects.push_back(fallingBall);
 
-	//fallingBall->AddComponent<DynamicRigidbodyComponent>();
+	fallingBall->AddComponent<DynamicRigidbodyComponent>();
 
 
 }
@@ -149,6 +149,8 @@ void BackroomsLevel0Scene::Unload()
 
 void BackroomsLevel0Scene::Update(float dt)
 {
+	Scene::Update(dt);
+
 	auto mouseVector = Input::GetMouseMoveVector();
 
 	SceneCam.Yaw += mouseVector.x * 100.0f * dt;

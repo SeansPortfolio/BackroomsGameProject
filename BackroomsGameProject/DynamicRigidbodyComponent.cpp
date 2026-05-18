@@ -1,6 +1,6 @@
 #include "DynamicRigidbodyComponent.h"
 
-DynamicRigidbodyComponent::DynamicRigidbodyComponent()
+DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject) : Component(gameObject)
 {
 	physx::PxBoxGeometry box = Physics::CreateBoxGeometry(0.5f, 0.5f, 0.5f);
 	physx::PxShape* shape = Physics::CreateShape(&box);

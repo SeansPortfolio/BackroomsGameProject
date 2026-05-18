@@ -19,6 +19,11 @@ class Component
 {
 public:
 
+	Component(GameObject* gameObject)
+	{
+		this->gameObject = gameObject;
+	}
+
 	~Component()
 	{
 		gameObject = NULL;

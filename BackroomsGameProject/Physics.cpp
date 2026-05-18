@@ -41,7 +41,7 @@ physx::PxShape* Physics::CreateShape(physx::PxGeometry* geometry, physx::PxMater
 
 physx::PxRigidDynamic* Physics::CreateRigidDynamic(glm::vec3 pos, glm::vec3 rot)
 {
-	physx::PxTransform localTm(Physics::ConvertPosition(pos), Physics::ConvertRotation(rot));
+	physx::PxTransform localTm(Physics::ConvertPosition(pos));
 	physx::PxRigidDynamic* body = Instance->CreateRigidDynamic(localTm);
 	return body;
 }
@@ -128,5 +128,7 @@ physx::PxShape* PhysicsContainer::CreateShape(physx::PxGeometry* geometry, physx
 
 physx::PxRigidDynamic* PhysicsContainer::CreateRigidDynamic(physx::PxTransform transform)
 {
-	return gPhysics->createRigidDynamic(transform);
+	auto actor = gPhysics->createRigidDynamic(transform);
+	gScene->addActor(*actor);
+	return actor;
 }

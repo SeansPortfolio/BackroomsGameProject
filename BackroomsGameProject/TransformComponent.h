@@ -9,7 +9,7 @@ class TransformComponent : public Component
 {
 public:
 
-	TransformComponent(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
+	TransformComponent(GameObject* gameObject, glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
 
 	~TransformComponent();
 

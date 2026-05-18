@@ -6,7 +6,7 @@
 class DynamicRigidbodyComponent : public Component
 {
 public:
-	DynamicRigidbodyComponent();
+	DynamicRigidbodyComponent(GameObject* gameObject);
 	~DynamicRigidbodyComponent();
 
 	virtual void Update(float dt);

@@ -1,6 +1,6 @@
 #include "RendererComponent.h"
 
-RendererComponent::RendererComponent(std::shared_ptr<Model> model, std::shared_ptr<ShaderProgram> shader)
+RendererComponent::RendererComponent(GameObject* gameObject, std::shared_ptr<Model> model, std::shared_ptr<ShaderProgram> shader) : Component(gameObject)
 {
 	SetShader(shader);
 	SetModel(model);

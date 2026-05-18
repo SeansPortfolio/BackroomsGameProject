@@ -1,6 +1,6 @@
 #include "TransformComponent.h"
 
-TransformComponent::TransformComponent(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
+TransformComponent::TransformComponent(GameObject* gameObject, glm::vec3 pos, glm::vec3 rot, glm::vec3 scale) : Component(gameObject)
 {
 	Position = pos;
 	Rotation = rot;

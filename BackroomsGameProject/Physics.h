@@ -31,6 +31,8 @@ public:
 
 	static physx::PxRigidStatic* CreateRigidStatic(glm::vec3 pos, glm::vec3 rot);
 
+	static physx::PxController* CreateController(physx::PxCapsuleControllerDesc& desc);
+
 	static physx::PxVec3 ConvertPosition(glm::vec3 pos);
 
 	static glm::vec3 ConvertPosition(physx::PxVec3 pos);
@@ -63,6 +65,7 @@ private:
 
 	physx::PxRigidStatic* CreateRigidStatic(physx::PxTransform transform);
 
+	physx::PxController* CreateController(physx::PxControllerDesc& desc);
 
 	physx::PxDefaultAllocator		gAllocator;
 	physx::PxDefaultErrorCallback	gErrorCallback;
@@ -72,6 +75,8 @@ private:
 	physx::PxScene* gScene = NULL;
 	physx::PxMaterial* gMaterial = NULL;
 	physx::PxPvd* gPvd = NULL;
+
+	physx::PxControllerManager* controllerManager;
 
 	const char* localHost = "127.0.0.1";
 

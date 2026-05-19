@@ -114,6 +114,9 @@
     <ClCompile Include="StaticRigidbodyComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterControllerComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -183,6 +186,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="StaticRigidbodyComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterControllerComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

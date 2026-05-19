@@ -11,7 +11,7 @@ enum class ComponentType
 	Renderer,
 	Collider,
 	Rigidbody,
-
+	Controller,
 };
 
 

@@ -10,6 +10,7 @@
 #include "TransformComponent.h"
 #include "StaticRigidbodyComponent.h"
 #include "DynamicRigidbodyComponent.h"
+#include "CharacterControllerComponent.h"
 
 class Component;
 class RendererComponent;

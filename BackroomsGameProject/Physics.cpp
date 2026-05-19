@@ -53,6 +53,11 @@ physx::PxRigidStatic* Physics::CreateRigidStatic(glm::vec3 pos, glm::vec3 rot)
 	return body;
 }
 
+physx::PxController* Physics::CreateController(physx::PxCapsuleControllerDesc& desc)
+{
+	return Instance->CreateController(desc);
+}
+
 physx::PxVec3 Physics::ConvertPosition(glm::vec3 pos)
 {
 	return physx::PxVec3(pos.x, pos.y, pos.z);
@@ -117,9 +122,10 @@ void PhysicsContainer::InitPhysics()
 
 	gMaterial = gPhysics->createMaterial(0.75f, 0.8f, 0.2f);
 
-
 	physx::PxRigidStatic* groundPlane = PxCreatePlane(*gPhysics, physx::PxPlane(0, 1, 0, 0), *gMaterial);
 	gScene->addActor(*groundPlane);
+
+	controllerManager = PxCreateControllerManager(*gScene);
 }
 
 void PhysicsContainer::RegisterActor(physx::PxActor* actor)
@@ -171,4 +177,14 @@ physx::PxRigidStatic* PhysicsContainer::CreateRigidStatic(physx::PxTransform tra
 	auto actor = gPhysics->createRigidStatic(transform);
 	gScene->addActor(*actor);
 	return actor;
+}
+
+physx::PxController* PhysicsContainer::CreateController(physx::PxControllerDesc& desc)
+{
+	if (desc.material == NULL)
+	{
+		desc.material = gMaterial;
+	}
+
+	return controllerManager->createController(desc);
 }

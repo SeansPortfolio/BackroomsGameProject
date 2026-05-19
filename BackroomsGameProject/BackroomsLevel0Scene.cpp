@@ -144,10 +144,11 @@ void BackroomsLevel0Scene::Load()
 	fallingBall = std::make_shared<GameObject>(glm::vec3(0, 50, 0));
 	fallingBall->AddComponent<RendererComponent>(model, shader);
 	fallingBall->AddComponent<DynamicRigidbodyComponent>();
-
 	SceneObjects.push_back(fallingBall);
 
-
+	auto player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
+	player->AddComponent<CharacterControllerComponent>();
+	SceneObjects.push_back(player);
 }
 
 void BackroomsLevel0Scene::Unload()

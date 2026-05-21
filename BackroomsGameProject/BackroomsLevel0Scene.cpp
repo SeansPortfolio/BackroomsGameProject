@@ -144,29 +144,15 @@ void BackroomsLevel0Scene::Load()
 	auto model = Resources::Instance->GetModel("RedCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-	SphereColliderShape* sphereCollider = new SphereColliderShape(glm::vec3(0, 0, 0), 1.0f);
-
-	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 40, 0));
-	fallingBall->AddComponent<RendererComponent>(model, shader);
-	fallingBall->AddComponent<DynamicRigidbodyComponent>(sphereCollider);
-	SceneObjects.push_back(fallingBall);
-
-	fallingBall = std::make_shared<GameObject>(glm::vec3(0, 50, 0));
-	fallingBall->AddComponent<RendererComponent>(model, shader);
-	fallingBall->AddComponent<DynamicRigidbodyComponent>(sphereCollider);
-	SceneObjects.push_back(fallingBall);
-
 	auto player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
 	player->AddComponent<CharacterControllerComponent>();
 	SceneObjects.push_back(player);
 
 	delete wallCollider;
 	delete floorCollider;
-	delete sphereCollider;
 
 	wallCollider = NULL;
 	floorCollider = NULL;
-	sphereCollider = NULL;
 }
 
 void BackroomsLevel0Scene::Unload()

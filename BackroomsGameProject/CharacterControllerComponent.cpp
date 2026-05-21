@@ -15,6 +15,7 @@ CharacterControllerComponent::CharacterControllerComponent(GameObject* gameObjec
 
 CharacterControllerComponent::~CharacterControllerComponent()
 {
+
 }
 
 void CharacterControllerComponent::Update(float dt)

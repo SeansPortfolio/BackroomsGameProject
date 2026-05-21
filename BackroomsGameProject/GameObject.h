@@ -7,14 +7,12 @@
 
 #include "Component.h"
 #include "RendererComponent.h"
-#include "TransformComponent.h"
 #include "StaticRigidbodyComponent.h"
 #include "DynamicRigidbodyComponent.h"
 #include "CharacterControllerComponent.h"
 
 class Component;
 class RendererComponent;
-class TransformComponent;
 
 class GameObject
 {
@@ -32,6 +30,20 @@ public:
 
 	virtual void Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 
+	glm::mat4 GetModelMatrix(glm::mat4 parent);
+
+	inline glm::vec3 GetPosition() const { return Position; }
+
+	inline glm::vec3 GetRotation() const { return Rotation; }
+
+	inline glm::vec3 GetScale() const { return Scale; }
+
+	inline void SetPosition(glm::vec3 pos) { Position = pos; }
+
+	inline void SetRotation(glm::vec3 rot) { Rotation = rot; }
+
+	inline void SetScale(glm::vec3 scale) { Scale = scale; }
+
 	template<typename T, typename... Args>
 	inline T& AddComponent(Args && ...args)
 	{
@@ -43,11 +55,14 @@ public:
 		return *newComponent;
 	}
 
-	std::unique_ptr <TransformComponent> Transform;
-
 private:
 
 	std::vector<std::shared_ptr<GameObject>> Children;
 
 	std::vector<std::shared_ptr<Component>> Components;
+
+	glm::vec3 Position;
+	glm::vec3 Rotation;
+	glm::vec3 Scale;
+
 };

@@ -1,23 +1,16 @@
 #include "GameObject.h"
 
-GameObject::GameObject() : GameObject(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1))
-{
+GameObject::GameObject() : GameObject(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)) { }
 
-}
+GameObject::GameObject(glm::vec3 pos) : GameObject(pos, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)) { }
 
-GameObject::GameObject(glm::vec3 pos) : GameObject(pos, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1))
-{
-
-}
-
-GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm::vec3(1, 1, 1))
-{
-
-}
+GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm::vec3(1, 1, 1)) { }
 
 GameObject::GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
-	Transform = std::make_unique<TransformComponent>(this, pos, rot, scale);
+	Position = pos;
+	Rotation = rot;
+	Scale = scale;
 }
 
 GameObject::~GameObject()
@@ -47,7 +40,7 @@ void GameObject::Update(float dt)
 
 void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
-	auto modelMatrix = Transform->GetModelMatrix(parentModel);
+	auto modelMatrix = GetModelMatrix(parentModel);
 
 	int numComponents = Components.size();
 	for (int i = 0; i < numComponents; i++)
@@ -60,4 +53,17 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 	{
 		Children[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
 	}
+}
+
+glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent)
+{
+	glm::mat4 modelMatrix = glm::mat4(parent);
+
+	modelMatrix = glm::translate(modelMatrix, Position);
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	modelMatrix = glm::scale(modelMatrix, Scale);
+
+	return modelMatrix;
 }

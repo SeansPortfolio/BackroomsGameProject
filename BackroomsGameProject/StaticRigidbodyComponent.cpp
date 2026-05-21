@@ -5,8 +5,8 @@ StaticRigidbodyComponent::StaticRigidbodyComponent(GameObject* gameObject, Colli
 	physx::PxShape* shape = collider->CreateShape();
 
 	body = Physics::CreateRigidStatic(
-		gameObject->Transform->Position,
-		gameObject->Transform->Rotation);
+		gameObject->GetPosition(),
+		gameObject->GetRotation());
 
 	body->attachShape(*shape);
 	shape->release();

@@ -5,8 +5,8 @@ DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject, Col
 	physx::PxShape* shape = collider->CreateShape();
 
 	body = Physics::CreateRigidDynamic(
-		gameObject->Transform->Position,
-		gameObject->Transform->Rotation);
+		gameObject->GetPosition(),
+		gameObject->GetRotation());
 
 	body->attachShape(*shape);
 	shape->release();
@@ -21,7 +21,7 @@ DynamicRigidbodyComponent::~DynamicRigidbodyComponent()
 void DynamicRigidbodyComponent::Update(float dt)
 {
 	auto globalPos = body->getGlobalPose();
-	gameObject->Transform->Position = Physics::ConvertPosition(globalPos.p);
-	gameObject->Transform->Rotation = Physics::ConvertRotation(globalPos.q);
+	gameObject->SetRotation(Physics::ConvertPosition(globalPos.p));
+	gameObject->SetRotation(Physics::ConvertRotation(globalPos.q));
 }
 

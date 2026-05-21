@@ -19,7 +19,7 @@ CharacterControllerComponent::~CharacterControllerComponent()
 
 void CharacterControllerComponent::Update(float dt)
 {
-	physx::PxVec3 move;
+	physx::PxVec3 move(0, 0, 0);
 
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_W))
@@ -27,11 +27,7 @@ void CharacterControllerComponent::Update(float dt)
 		move.x = 10 * dt;
 		move.y = 0;
 		move.z = 0;
-
 	}
 	
-
-
-	//controller->move(move, 0.01f, dt, NULL);
-
+	controller->move(move, 0.01f, dt, NULL);
 }

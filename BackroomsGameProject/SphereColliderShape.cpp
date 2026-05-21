@@ -12,7 +12,11 @@ SphereColliderShape::~SphereColliderShape()
 
 physx::PxShape* SphereColliderShape::CreateShape()
 {
-	physx::PxSphereGeometry box = Physics::CreateSphereGeometry(Radius);
-	physx::PxShape* shape = Physics::CreateShape(&box);
+	physx::PxSphereGeometry sphere = Physics::CreateSphereGeometry(Radius);
+	physx::PxShape* shape = Physics::CreateShape(&sphere);
+
+	physx::PxTransform pos(physx::PxVec3(Center.x, Center.y, Center.z));
+	shape->setLocalPose(pos);
+
 	return shape;
 }

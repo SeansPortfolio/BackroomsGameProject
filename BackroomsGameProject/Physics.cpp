@@ -46,14 +46,14 @@ physx::PxShape* Physics::CreateShape(physx::PxGeometry* geometry, physx::PxMater
 
 physx::PxRigidDynamic* Physics::CreateRigidDynamic(glm::vec3 pos, glm::vec3 rot)
 {
-	physx::PxTransform localTm(Physics::ConvertPosition(pos));
+	physx::PxTransform localTm(Physics::ConvertPosition(pos), Physics::ConvertRotation(rot));
 	physx::PxRigidDynamic* body = Instance->CreateRigidDynamic(localTm);
 	return body;
 }
 
 physx::PxRigidStatic* Physics::CreateRigidStatic(glm::vec3 pos, glm::vec3 rot)
 {
-	physx::PxTransform localTm(Physics::ConvertPosition(pos));
+	physx::PxTransform localTm(Physics::ConvertPosition(pos), Physics::ConvertRotation(rot));
 	physx::PxRigidStatic* body = Instance->CreateRigidStatic(localTm);
 	return body;
 }
@@ -75,7 +75,10 @@ glm::vec3 Physics::ConvertPosition(physx::PxVec3 pos)
 
 physx::PxQuat Physics::ConvertRotation(glm::vec3 rot)
 {
-	return physx::PxQuat();
+	glm::quat quaternion = glm::quat(glm::vec3(
+		glm::radians(rot.x), glm::radians(rot.y), glm::radians(rot.z)));
+
+	return physx::PxQuat(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 }
 
 glm::vec3 Physics::ConvertRotation(physx::PxQuat rot)

@@ -13,7 +13,7 @@ void BackroomsLevel0Scene::Load()
 	int mapSize = 10;
 
 	BoxColliderShape* floorCollider = new BoxColliderShape(glm::vec3(0, 0, 0), glm::vec3(5.0f, 0.25f, 5.0f));
-	BoxColliderShape* wallCollider = new BoxColliderShape(glm::vec3(0, 0, 0), glm::vec3(5.0f, 5.0f, 0.25f));
+	BoxColliderShape* wallCollider = new BoxColliderShape(glm::vec3(0, 5.0f, 0), glm::vec3(0.25f, 5.0f, 5.0f));
 
 	// create the floor
 	{

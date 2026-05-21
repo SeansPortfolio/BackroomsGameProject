@@ -2,6 +2,7 @@
 
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
+#include <gtc/quaternion.hpp>
 
 #include <physx/PxPhysicsAPI.h>
 #include <map>

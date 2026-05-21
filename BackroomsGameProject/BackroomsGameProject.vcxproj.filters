@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{2e9bbbce-ebd4-427a-9470-bc7df57f658a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics\Shapes">
+      <UniqueIdentifier>{e04e2081-ec62-40c2-8aca-1dea4c4ac843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Shapes">
+      <UniqueIdentifier>{1cf1cc28-9f35-42d0-8e23-c8e2f4d2d452}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -117,6 +123,15 @@
     <ClCompile Include="CharacterControllerComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BoxColliderShape.cpp">
+      <Filter>Source Files\Physics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderShape.cpp">
+      <Filter>Source Files\Physics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereColliderShape.cpp">
+      <Filter>Source Files\Physics\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -190,6 +205,15 @@
     </ClInclude>
     <ClInclude Include="CharacterControllerComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxColliderShape.h">
+      <Filter>Header Files\Physics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderShape.h">
+      <Filter>Header Files\Physics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereColliderShape.h">
+      <Filter>Header Files\Physics\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

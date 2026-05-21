@@ -80,11 +80,12 @@ void FallingShapesScene::Update(float dt)
 std::shared_ptr<GameObject> FallingShapesScene::CreateRandomCube(glm::vec3 pos)
 {
 	auto cube = std::make_shared<GameObject>(pos);
+	BoxColliderShape* floorCollider = new BoxColliderShape(glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
 	auto cubeMesh = Resources::Instance->GetModel(CubeNames[rand() % CubeNames.size()]);
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 	cube->AddComponent<RendererComponent>(cubeMesh, shader);
-	cube->AddComponent<DynamicRigidbodyComponent>();
+	cube->AddComponent<DynamicRigidbodyComponent>(floorCollider);
 
 	float randX = rand() % 600;
 	float randY = rand() % 600;

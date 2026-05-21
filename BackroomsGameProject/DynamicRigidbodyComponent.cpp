@@ -1,9 +1,8 @@
 #include "DynamicRigidbodyComponent.h"
 
-DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject) : Component(gameObject)
+DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject, ColliderShape* collider) : Component(gameObject)
 {
-	physx::PxBoxGeometry box = Physics::CreateBoxGeometry(1.0f, 1.0f, 1.0f);
-	physx::PxShape* shape = Physics::CreateShape(&box);
+	physx::PxShape* shape = collider->CreateShape();
 
 	body = Physics::CreateRigidDynamic(
 		gameObject->Transform->Position,
@@ -11,7 +10,6 @@ DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject) : C
 
 	body->attachShape(*shape);
 	shape->release();
-
 }
 
 DynamicRigidbodyComponent::~DynamicRigidbodyComponent()

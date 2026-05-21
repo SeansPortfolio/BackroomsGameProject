@@ -1,9 +1,8 @@
 #include "StaticRigidbodyComponent.h"
 
-StaticRigidbodyComponent::StaticRigidbodyComponent(GameObject* gameObject) : Component(gameObject)
+StaticRigidbodyComponent::StaticRigidbodyComponent(GameObject* gameObject, ColliderShape* collider) : Component(gameObject)
 {
-	physx::PxBoxGeometry box = Physics::CreateBoxGeometry(5.0f, 0.25f, 5.0f);
-	physx::PxShape* shape = Physics::CreateShape(&box);
+	physx::PxShape* shape = collider->CreateShape();
 
 	body = Physics::CreateRigidStatic(
 		gameObject->Transform->Position,

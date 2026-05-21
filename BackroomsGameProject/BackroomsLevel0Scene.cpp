@@ -12,6 +12,9 @@ void BackroomsLevel0Scene::Load()
 {
 	int mapSize = 10;
 
+	BoxColliderShape* floorCollider = new BoxColliderShape(glm::vec3(0, 0, 0), glm::vec3(5.0f, 0.25f, 5.0f));
+	BoxColliderShape* wallCollider = new BoxColliderShape(glm::vec3(0, 0, 0), glm::vec3(5.0f, 5.0f, 0.25f));
+
 	// create the floor
 	{
 		auto model = Resources::Instance->GetModel("FloorCeiling");
@@ -24,14 +27,14 @@ void BackroomsLevel0Scene::Load()
 				auto floorTile = std::make_shared<GameObject>();
 				floorTile->Transform->Position = glm::vec3(x * 10, 0, z * 10);
 				floorTile->AddComponent<RendererComponent>(model, shader);
-				floorTile->AddComponent<StaticRigidbodyComponent>();
+				floorTile->AddComponent<StaticRigidbodyComponent>(floorCollider);
 
 				SceneObjects.push_back(floorTile);
 
 				auto roofTile = std::make_shared<GameObject>();
 				roofTile->Transform->Position = glm::vec3(x * 10, 10, z * 10);
 				roofTile->AddComponent<RendererComponent>(model, shader);
-				roofTile->AddComponent<StaticRigidbodyComponent>();
+				roofTile->AddComponent<StaticRigidbodyComponent>(floorCollider);
 
 				SceneObjects.push_back(roofTile);
 
@@ -50,6 +53,7 @@ void BackroomsLevel0Scene::Load()
 			wallTile->Transform->Position = glm::vec3(x * 10, 0, mapSize * 10 - 5.0f);
 			wallTile->Transform->Rotation = glm::vec3(0, 90, 0);
 			wallTile->AddComponent<RendererComponent>(model, shader);
+			wallTile->AddComponent<StaticRigidbodyComponent>(wallCollider);
 
 			SceneObjects.push_back(wallTile);
 
@@ -57,6 +61,7 @@ void BackroomsLevel0Scene::Load()
 			wallTile->Transform->Position = glm::vec3(x * 10, 0, -5.0f);
 			wallTile->Transform->Rotation = glm::vec3(0, 90, 0);
 			wallTile->AddComponent<RendererComponent>(model, shader);
+			wallTile->AddComponent<StaticRigidbodyComponent>(wallCollider);
 
 			SceneObjects.push_back(wallTile);
 		}
@@ -66,12 +71,14 @@ void BackroomsLevel0Scene::Load()
 			auto wallTile = std::make_shared<GameObject>();
 			wallTile->Transform->Position = glm::vec3(mapSize * 10 - 5.0f, 0, z * 10);
 			wallTile->AddComponent<RendererComponent>(model, shader);
+			wallTile->AddComponent<StaticRigidbodyComponent>(wallCollider);
 
 			SceneObjects.push_back(wallTile);
 
 			wallTile = std::make_shared<GameObject>();
 			wallTile->Transform->Position = glm::vec3(-5.0f, 0, z * 10);
 			wallTile->AddComponent<RendererComponent>(model, shader);
+			wallTile->AddComponent<StaticRigidbodyComponent>(wallCollider);
 
 			SceneObjects.push_back(wallTile);
 		}
@@ -94,6 +101,7 @@ void BackroomsLevel0Scene::Load()
 			auto wallTile = std::make_shared<GameObject>();
 			wallTile->Transform->Position = glm::vec3(x - 5.0f, 0, z * 10);
 			wallTile->AddComponent<RendererComponent>(model, shader);
+			wallTile->AddComponent<StaticRigidbodyComponent>(wallCollider);
 
 			SceneObjects.push_back(wallTile);
 		}
@@ -136,19 +144,29 @@ void BackroomsLevel0Scene::Load()
 	auto model = Resources::Instance->GetModel("RedCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
+	SphereColliderShape* sphereCollider = new SphereColliderShape(glm::vec3(0, 0, 0), 1.0f);
+
 	auto fallingBall = std::make_shared<GameObject>(glm::vec3(0, 40, 0));
 	fallingBall->AddComponent<RendererComponent>(model, shader);
-	fallingBall->AddComponent<DynamicRigidbodyComponent>();
+	fallingBall->AddComponent<DynamicRigidbodyComponent>(sphereCollider);
 	SceneObjects.push_back(fallingBall);
 
 	fallingBall = std::make_shared<GameObject>(glm::vec3(0, 50, 0));
 	fallingBall->AddComponent<RendererComponent>(model, shader);
-	fallingBall->AddComponent<DynamicRigidbodyComponent>();
+	fallingBall->AddComponent<DynamicRigidbodyComponent>(sphereCollider);
 	SceneObjects.push_back(fallingBall);
 
 	auto player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
 	player->AddComponent<CharacterControllerComponent>();
 	SceneObjects.push_back(player);
+
+	delete wallCollider;
+	delete floorCollider;
+	delete sphereCollider;
+
+	wallCollider = NULL;
+	floorCollider = NULL;
+	sphereCollider = NULL;
 }
 
 void BackroomsLevel0Scene::Unload()

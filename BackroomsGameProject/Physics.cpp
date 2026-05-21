@@ -24,6 +24,11 @@ void Physics::Quit()
 	Instance.release();
 }
 
+physx::PxSphereGeometry Physics::CreateSphereGeometry(float radius)
+{
+	return physx::PxSphereGeometry(radius);
+}
+
 physx::PxBoxGeometry Physics::CreateBoxGeometry(float halfExtentX, float halfExtentY, float halfExtentZ)
 {
 	return physx::PxBoxGeometry(halfExtentX, halfExtentY, halfExtentZ);

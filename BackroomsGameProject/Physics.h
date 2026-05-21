@@ -21,6 +21,8 @@ public:
 
 	static void Quit();
 
+	static physx::PxSphereGeometry CreateSphereGeometry(float radius);
+
 	static physx::PxBoxGeometry CreateBoxGeometry(float halfExtentX, float halfExtentY, float halfExtentZ);
 
 	static physx::PxShape* CreateShape(physx::PxGeometry* geometry);

@@ -1,6 +1,6 @@
 #include "DynamicRigidbodyComponent.h"
 
-DynamicRigidbodyComponent::DynamicRigidbodyComponent(GameObject* gameObject, ColliderShape* collider) : Component(gameObject)
+DynamicRigidbodyComponent::DynamicRigidbodyComponent(OLDGameObject* gameObject, ColliderShape* collider) : Component(gameObject)
 {
 	physx::PxShape* shape = collider->CreateShape();
 

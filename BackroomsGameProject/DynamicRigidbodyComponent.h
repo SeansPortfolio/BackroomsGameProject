@@ -9,12 +9,12 @@
 class DynamicRigidbodyComponent : public Component
 {
 public:
-	DynamicRigidbodyComponent(GameObject* gameObject, ColliderShape* collider);
+	DynamicRigidbodyComponent(OLDGameObject* gameObject, ColliderShape* collider);
 	~DynamicRigidbodyComponent();
 
 	virtual void Update(float dt);
 
-	virtual inline ComponentType GetType() const { return ComponentType::Rigidbody; }
+	virtual inline OLDComponentType GetType() const { return OLDComponentType::Rigidbody; }
 
 private:
 

@@ -9,13 +9,13 @@ class RendererComponent : public Component
 {
 public:
 
-	RendererComponent(GameObject* gameObject, std::shared_ptr<Model> model, std::shared_ptr<ShaderProgram> shader);
+	RendererComponent(OLDGameObject* gameObject, std::shared_ptr<Model> model, std::shared_ptr<ShaderProgram> shader);
 
 	virtual void Update(float dt);
 
 	virtual void Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 
-	virtual inline ComponentType GetType() const { return ComponentType::Renderer; }
+	virtual inline OLDComponentType GetType() const { return OLDComponentType::Renderer; }
 
 	void SetShader(std::shared_ptr<ShaderProgram> shader);
 

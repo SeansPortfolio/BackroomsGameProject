@@ -77,9 +77,9 @@ void FallingShapesScene::Update(float dt)
 
 }
 
-std::shared_ptr<GameObject> FallingShapesScene::CreateRandomCube(glm::vec3 pos)
+std::shared_ptr<OLDGameObject> FallingShapesScene::CreateRandomCube(glm::vec3 pos)
 {
-	auto cube = std::make_shared<GameObject>(pos);
+	auto cube = std::make_shared<OLDGameObject>(pos);
 	BoxColliderShape* floorCollider = new BoxColliderShape(glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
 	auto cubeMesh = Resources::Instance->GetModel(CubeNames[rand() % CubeNames.size()]);

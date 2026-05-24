@@ -3,9 +3,9 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 
-class GameObject;
+class OLDGameObject;
 
-enum class ComponentType
+enum class OLDComponentType
 {
 	Transform,
 	Renderer,
@@ -15,11 +15,28 @@ enum class ComponentType
 };
 
 
+
+using ComponentType = std::uint8_t;
+const ComponentType MaxComponents = 31;
+
+
+struct TransformComponent
+{
+	glm::vec3 Position;
+};
+
+
+
+
+
+
+
+
 class Component
 {
 public:
 
-	Component(GameObject* gameObject)
+	Component(OLDGameObject* gameObject)
 	{
 		this->gameObject = gameObject;
 	}
@@ -33,15 +50,15 @@ public:
 
 	virtual void Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix) { }
 
-	virtual inline ComponentType GetType() const = 0;
+	virtual inline OLDComponentType GetType() const = 0;
 
-	inline bool IsPhysicsType() { return GetType() == ComponentType::Collider || GetType() == ComponentType::Rigidbody; }
+	inline bool IsPhysicsType() { return GetType() == OLDComponentType::Collider || GetType() == OLDComponentType::Rigidbody; }
 
 protected:
 
-	GameObject* gameObject;
+	OLDGameObject* gameObject;
 
-	friend class GameObject;
+	friend class OLDGameObject;
 };
 
 #include "GameObject.h"

@@ -1,7 +1,10 @@
 #pragma once
 
+// https://austinmorlan.com/posts/entity_component_system/
+
 #include <memory>
 #include <vector>
+#include <bitset>
 
 #include "Physics.h"
 
@@ -14,17 +17,32 @@
 class Component;
 class RendererComponent;
 
-class GameObject
+using GameObject = std::uint32_t;
+using ComponentMask = std::bitset<MaxComponents>;
+
+const GameObject MaxGameObjects = 5000;
+
+
+
+
+
+
+
+
+
+
+
+class OLDGameObject
 {
 public:
 
-	GameObject();
-	GameObject(glm::vec3 pos);
-	GameObject(glm::vec3 pos, glm::vec3 rot);
-	GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
-	~GameObject();
+	OLDGameObject();
+	OLDGameObject(glm::vec3 pos);
+	OLDGameObject(glm::vec3 pos, glm::vec3 rot);
+	OLDGameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
+	~OLDGameObject();
 
-	virtual void AddChild(std::shared_ptr<GameObject> child);
+	virtual void AddChild(std::shared_ptr<OLDGameObject> child);
 
 	virtual void Update(float dt);
 
@@ -57,7 +75,7 @@ public:
 
 private:
 
-	std::vector<std::shared_ptr<GameObject>> Children;
+	std::vector<std::shared_ptr<OLDGameObject>> Children;
 
 	std::vector<std::shared_ptr<Component>> Components;
 

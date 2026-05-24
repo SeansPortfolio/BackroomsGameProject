@@ -1,6 +1,6 @@
 #include "CharacterControllerComponent.h"
 
-CharacterControllerComponent::CharacterControllerComponent(GameObject* gameObject) : Component(gameObject)
+CharacterControllerComponent::CharacterControllerComponent(OLDGameObject* gameObject) : Component(gameObject)
 {
 	physx::PxCapsuleControllerDesc desc;
 

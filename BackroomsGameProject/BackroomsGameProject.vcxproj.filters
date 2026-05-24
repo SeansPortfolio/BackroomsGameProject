@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Physics\Shapes">
       <UniqueIdentifier>{1cf1cc28-9f35-42d0-8e23-c8e2f4d2d452}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ECS">
+      <UniqueIdentifier>{efeba17f-c243-4331-833f-feb8f9b892c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECS">
+      <UniqueIdentifier>{99e8395e-c109-4c03-802c-f2a54376cc2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -65,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\Graphics</Filter>
@@ -129,6 +132,12 @@
     <ClCompile Include="SphereColliderShape.cpp">
       <Filter>Source Files\Physics\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentArray.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -145,9 +154,6 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\Graphics</Filter>
@@ -185,9 +191,6 @@
     <ClInclude Include="Material.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="RendererComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -208,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="SphereColliderShape.h">
       <Filter>Header Files\Physics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentArray.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

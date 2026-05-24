@@ -13,7 +13,7 @@ public:
 
 private:
 
-	std::shared_ptr<GameObject> CreateRandomCube(glm::vec3 pos);
+	std::shared_ptr<OLDGameObject> CreateRandomCube(glm::vec3 pos);
 
 	std::vector<const char*> CubeNames;
 

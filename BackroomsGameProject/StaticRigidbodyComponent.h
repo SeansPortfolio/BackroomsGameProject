@@ -10,12 +10,12 @@ class StaticRigidbodyComponent : public Component
 {
 public:
 
-	StaticRigidbodyComponent(GameObject* gameObject, ColliderShape* collider);
+	StaticRigidbodyComponent(OLDGameObject* gameObject, ColliderShape* collider);
 	~StaticRigidbodyComponent();
 
 	virtual void Update(float dt);
 
-	virtual inline ComponentType GetType() const { return ComponentType::Rigidbody; }
+	virtual inline OLDComponentType GetType() const { return OLDComponentType::Rigidbody; }
 
 
 private:

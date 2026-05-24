@@ -7,12 +7,12 @@
 class CharacterControllerComponent : public Component
 {
 public:
-	CharacterControllerComponent(GameObject* gameObject);
+	CharacterControllerComponent(OLDGameObject* gameObject);
 	~CharacterControllerComponent();
 
 	virtual void Update(float dt);
 
-	virtual inline ComponentType GetType() const { return ComponentType::Controller; }
+	virtual inline OLDComponentType GetType() const { return OLDComponentType::Controller; }
 
 private:
 

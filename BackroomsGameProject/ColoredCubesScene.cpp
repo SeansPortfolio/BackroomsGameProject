@@ -96,9 +96,9 @@ void ColoredCubesScene::Update(float dt)
 
 }
 
-std::shared_ptr<GameObject> ColoredCubesScene::CreateRandomCube()
+std::shared_ptr<OLDGameObject> ColoredCubesScene::CreateRandomCube()
 {
-	auto cube = std::make_shared<GameObject>();
+	auto cube = std::make_shared<OLDGameObject>();
 	auto cubeMesh = Resources::Instance->GetModel(CubeNames[rand() % CubeNames.size()]);
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 	cube->AddComponent<RendererComponent>(cubeMesh, shader);

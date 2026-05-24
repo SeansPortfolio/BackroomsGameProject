@@ -94,6 +94,7 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClCompile Include="CharacterControllerComponent.cpp" />
     <ClCompile Include="ColliderShape.cpp" />
     <ClCompile Include="ColoredCubesScene.cpp" />
+    <ClCompile Include="ComponentArray.cpp" />
     <ClCompile Include="DynamicRigidbodyComponent.cpp" />
     <ClCompile Include="FallingShapesScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -123,6 +124,7 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClInclude Include="ColliderShape.h" />
     <ClInclude Include="ColoredCubesScene.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="DynamicRigidbodyComponent.h" />
     <ClInclude Include="FallingShapesScene.h" />
     <ClInclude Include="GameObject.h" />

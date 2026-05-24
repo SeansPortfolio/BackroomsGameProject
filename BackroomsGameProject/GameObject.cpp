@@ -1,29 +1,29 @@
 #include "GameObject.h"
 
-GameObject::GameObject() : GameObject(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)) { }
+OLDGameObject::OLDGameObject() : OLDGameObject(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)) { }
 
-GameObject::GameObject(glm::vec3 pos) : GameObject(pos, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)) { }
+OLDGameObject::OLDGameObject(glm::vec3 pos) : OLDGameObject(pos, glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)) { }
 
-GameObject::GameObject(glm::vec3 pos, glm::vec3 rot) : GameObject(pos, rot, glm::vec3(1, 1, 1)) { }
+OLDGameObject::OLDGameObject(glm::vec3 pos, glm::vec3 rot) : OLDGameObject(pos, rot, glm::vec3(1, 1, 1)) { }
 
-GameObject::GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
+OLDGameObject::OLDGameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
 	Position = pos;
 	Rotation = rot;
 	Scale = scale;
 }
 
-GameObject::~GameObject()
+OLDGameObject::~OLDGameObject()
 {
 
 }
 
-void GameObject::AddChild(std::shared_ptr<GameObject> child)
+void OLDGameObject::AddChild(std::shared_ptr<OLDGameObject> child)
 {
 	Children.push_back(child);
 }
 
-void GameObject::Update(float dt)
+void OLDGameObject::Update(float dt)
 {
 	int numComponents = Components.size();
 	for (int i = 0; i < numComponents; i++)
@@ -38,7 +38,7 @@ void GameObject::Update(float dt)
 	}
 }
 
-void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void OLDGameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
 	auto modelMatrix = GetModelMatrix(parentModel);
 
@@ -55,7 +55,7 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 	}
 }
 
-glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent)
+glm::mat4 OLDGameObject::GetModelMatrix(glm::mat4 parent)
 {
 	glm::mat4 modelMatrix = glm::mat4(parent);
 

@@ -25,10 +25,9 @@ void GameObject::AddChild(std::shared_ptr<GameObject> child)
 
 void GameObject::Update(float dt)
 {
-	int numComponents = Components.size();
-	for (int i = 0; i < numComponents; i++)
+	for (const auto& pair : ComponentTypeMap)
 	{
-		Components[i]->Update(dt);
+		pair.second->Update(dt);
 	}
 
 	int numChildren = Children.size();
@@ -42,10 +41,9 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 {
 	auto modelMatrix = GetModelMatrix(parentModel);
 
-	int numComponents = Components.size();
-	for (int i = 0; i < numComponents; i++)
+	for (const auto& pair : ComponentTypeMap)
 	{
-		Components[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
+		pair.second->Render(modelMatrix, viewMatrix, projectionMatrix);
 	}
 
 	int numChildren = Children.size();

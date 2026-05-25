@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unordered_map>
 #include <memory>
 #include <vector>
 
@@ -48,18 +49,48 @@ public:
 	inline T& AddComponent(Args && ...args)
 	{
 		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
-
 		auto newComponent = std::make_shared<T>(this, std::forward<Args>(args)...);
-		Components.push_back(newComponent);
+
+		auto name = typeid(T).name();
+		ComponentTypeMap[name] = newComponent;
 
 		return *newComponent;
 	}
+
+	template<typename T>
+	inline T& GetComponent()
+	{
+		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
+
+		auto name = typeid(T).name();
+
+		static_assert(ComponentTypeMap.find(name) != ComponentTypeMap.end() && "Component not registered before use.");
+
+		return std::static_pointer_cast<T>(ComponentTypeMap[name]);
+	}
+
+	template<typename T>
+	inline bool RemoveComponent()
+	{
+		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
+
+		auto name = typeid(T).name();
+
+		if (ComponentTypeMap.find(name) != ComponentTypeMap.end())
+		{
+			ComponentTypeMap.erase(name);
+			return true;
+		}
+
+		return false;
+	}
+
 
 private:
 
 	std::vector<std::shared_ptr<GameObject>> Children;
 
-	std::vector<std::shared_ptr<Component>> Components;
+	std::unordered_map<const char*, std::shared_ptr<Component>> ComponentTypeMap;
 
 	glm::vec3 Position;
 	glm::vec3 Rotation;

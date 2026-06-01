@@ -2,8 +2,9 @@
 
 void FallingShapesScene::Load()
 {
-	SceneCam.Position = glm::vec3(0, 0, -10);
-	SceneCam.Pitch = 50.0f;
+
+	//SceneCam.Position = glm::vec3(0, 0, -10);
+	//SceneCam.Pitch = 50.0f;
 
 	CubeNames.push_back("BlackCube");
 	CubeNames.push_back("BlueCube");
@@ -44,7 +45,7 @@ void FallingShapesScene::Update(float dt)
 
 
 	auto mouseVector = Input::GetMouseMoveVector();
-
+	/*
 	SceneCam.Yaw += mouseVector.x * 100.0f * dt;
 	SceneCam.Pitch -= mouseVector.y * 100.0f * dt;
 
@@ -74,7 +75,7 @@ void FallingShapesScene::Update(float dt)
 	{
 		SceneCam.Position += glm::normalize(glm::cross(SceneCam.Forward, SceneCam.Up)) * 200.0f * dt;
 	}
-
+	*/
 }
 
 std::shared_ptr<GameObject> FallingShapesScene::CreateRandomCube(glm::vec3 pos)

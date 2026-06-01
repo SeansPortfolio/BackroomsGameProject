@@ -3,19 +3,21 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 
-class Camera
+#include "GameObject.h"
+
+class CameraComponent : public Component
 {
 public:
 
-	Camera();
+	CameraComponent(GameObject* gameObject);
 
-	~Camera();
+	~CameraComponent();
 
 	glm::mat4 GetViewMatrix();
 
 	glm::mat4 GetProjectionMatrix(float aspectRatio);
 
-	glm::vec3 Position;
+	//glm::vec3 Position;
 
 	glm::vec3 Forward;
 

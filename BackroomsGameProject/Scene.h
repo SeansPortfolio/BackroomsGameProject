@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GameObject.h"
-#include "Camera.h"
 #include "Resources.h"
 
 #include "Input.h"
@@ -24,9 +23,8 @@ public:
 
 protected:
 
+	std::shared_ptr<CameraComponent> SceneCam;
+
 	std::vector<std::shared_ptr<GameObject>> SceneObjects;
-
-	Camera SceneCam;
-
 };
 

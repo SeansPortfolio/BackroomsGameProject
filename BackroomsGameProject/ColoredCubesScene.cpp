@@ -30,7 +30,7 @@ void ColoredCubesScene::Load()
 		SceneObjects.push_back(cube);
 	}
 
-	SceneCam.Position = glm::vec3(0, 0, -10);
+	//SceneCam.Position = glm::vec3(0, 0, -10);
 }
 
 void ColoredCubesScene::Unload()
@@ -44,6 +44,8 @@ void ColoredCubesScene::Update(float dt)
 
 	this->Scene::Update(dt);
 
+	/*
+
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{
 		auto rot = SceneObjects[i]->GetRotation();
@@ -53,18 +55,18 @@ void ColoredCubesScene::Update(float dt)
 
 	auto mouseVector = Input::GetMouseMoveVector();
 
-	SceneCam.Yaw += mouseVector.x * 100.0f * dt;
-	SceneCam.Pitch -= mouseVector.y * 100.0f * dt;
+	//SceneCam.Yaw += mouseVector.x * 100.0f * dt;
+	//SceneCam.Pitch -= mouseVector.y * 100.0f * dt;
 
 	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (SceneCam.Pitch > 80.0f)
-	{
-		SceneCam.Pitch = 80.0f;
-	}
-	if (SceneCam.Pitch < -80.0f)
-	{
-		SceneCam.Pitch = -80.0f;
-	}
+	//if (SceneCam.Pitch > 80.0f)
+	//{
+	//	SceneCam.Pitch = 80.0f;
+	//}
+	//if (SceneCam.Pitch < -80.0f)
+	//{
+	//	SceneCam.Pitch = -80.0f;
+	//}
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_W))
 	{
@@ -93,7 +95,7 @@ void ColoredCubesScene::Update(float dt)
 	}
 
 
-
+	*/
 }
 
 std::shared_ptr<GameObject> ColoredCubesScene::CreateRandomCube()

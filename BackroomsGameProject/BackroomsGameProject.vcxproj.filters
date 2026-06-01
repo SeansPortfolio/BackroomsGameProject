@@ -84,9 +84,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
     <ClCompile Include="SphereColliderShape.cpp">
       <Filter>Source Files\Physics\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -157,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="ColoredCubesScene.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Header Files\Utility</Filter>
@@ -208,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="SphereColliderShape.h">
       <Filter>Header Files\Physics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

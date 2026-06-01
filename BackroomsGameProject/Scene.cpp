@@ -10,9 +10,14 @@ void Scene::Update(float dt)
 
 void Scene::Render(float aspectRatio)
 {
+	if (SceneCam == nullptr)
+	{
+		return;
+	}
+
 	glm::mat4 model(1.0f);
-	glm::mat4 viewMatrix = SceneCam.GetViewMatrix();
-	glm::mat4 projectionMatrix = SceneCam.GetProjectionMatrix(aspectRatio);
+	glm::mat4 viewMatrix = SceneCam->GetViewMatrix();
+	glm::mat4 projectionMatrix = SceneCam->GetProjectionMatrix(aspectRatio);
 
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{

@@ -1,22 +1,22 @@
-#include "Camera.h"
+#include "CameraComponent.h"
 
-Camera::Camera()
+CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 {
 	Forward = glm::vec3(0, 0, 1.0f);
 	Up = glm::vec3(0, 1, 0);
-	Position = glm::vec3(0, 0, 0);
 
 	Yaw = 90.0f;
 	Pitch = 0.0f;
 }
 
-Camera::~Camera()
+CameraComponent::~CameraComponent()
 {
 
 }
 
-glm::mat4 Camera::GetViewMatrix()
+glm::mat4 CameraComponent::GetViewMatrix()
 {
+	auto pos = gameObject->GetPosition();
 	glm::vec3 forward;
 
 	forward.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
@@ -24,10 +24,10 @@ glm::mat4 Camera::GetViewMatrix()
 	forward.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
 	Forward = glm::normalize(forward);
 
-	return glm::lookAt(Position, Position + Forward, Up);
+	return glm::lookAt(pos, pos + Forward, Up);
 }
 
-glm::mat4 Camera::GetProjectionMatrix(float aspectRatio)
+glm::mat4 CameraComponent::GetProjectionMatrix(float aspectRatio)
 {
 	return glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 1000.0f);
 }

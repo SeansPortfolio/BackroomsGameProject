@@ -7,6 +7,7 @@
 #include "Physics.h"
 
 #include "Component.h"
+#include "CameraComponent.h"
 #include "RendererComponent.h"
 #include "StaticRigidbodyComponent.h"
 #include "DynamicRigidbodyComponent.h"
@@ -58,14 +59,11 @@ public:
 	}
 
 	template<typename T>
-	inline T& GetComponent()
+	inline std::shared_ptr<T> GetComponent()
 	{
 		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
 
 		auto name = typeid(T).name();
-
-		static_assert(ComponentTypeMap.find(name) != ComponentTypeMap.end() && "Component not registered before use.");
-
 		return std::static_pointer_cast<T>(ComponentTypeMap[name]);
 	}
 

@@ -146,6 +146,10 @@ void BackroomsLevel0Scene::Load()
 
 	Player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
 	Player->AddComponent<CharacterControllerComponent>();
+	Player->AddComponent<CameraComponent>();
+
+	SceneCam = Player->GetComponent<CameraComponent>();
+
 	SceneObjects.push_back(Player);
 
 	delete wallCollider;
@@ -164,20 +168,20 @@ void BackroomsLevel0Scene::Update(float dt)
 	Scene::Update(dt);
 
 	auto mouseVector = Input::GetMouseMoveVector();
+	auto cam = Player->GetComponent<CameraComponent>();
 
-	SceneCam.Position = Player->GetPosition();
+	cam->Yaw += mouseVector.x * 100.0f * dt;
+	cam->Pitch -= mouseVector.y * 100.0f * dt;
 
-
-	SceneCam.Yaw += mouseVector.x * 100.0f * dt;
-	SceneCam.Pitch -= mouseVector.y * 100.0f * dt;
-
+	
 	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (SceneCam.Pitch > 80.0f)
+	if (cam->Pitch > 80.0f)
 	{
-		SceneCam.Pitch = 80.0f;
+		cam->Pitch = 80.0f;
 	}
-	if (SceneCam.Pitch < -80.0f)
+	if (cam->Pitch < -80.0f)
 	{
-		SceneCam.Pitch = -80.0f;
+		cam->Pitch = -80.0f;
 	}
+	
 }

@@ -130,6 +130,7 @@ void BackroomsLevel0Scene::Load()
 			auto wallTile = std::make_shared<GameObject>();
 			wallTile->SetPosition(glm::vec3(x - 5.0f, 0, z * 10));
 			wallTile->AddComponent<RendererComponent>(model, shader);
+			wallTile->AddComponent<StaticRigidbodyComponent>(wallCollider);
 
 			SceneObjects.push_back(wallTile);
 		}

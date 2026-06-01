@@ -20,26 +20,35 @@ CharacterControllerComponent::~CharacterControllerComponent()
 
 void CharacterControllerComponent::Update(float dt)
 {
-	physx::PxVec3 move(0, 0, 0);
+	glm::vec3 forward = gameObject->GetForward();
+	glm::vec3 move(0, 0, 0);
+	glm::vec3 up(0, 1, 0);
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_W))
 	{
-		move.z = 10 * dt;
+		move += forward;
 	}
 	if (Input::IsKeyDown(KeyCode::KEYCODE_S))
 	{
-		move.z = -10 * dt;
+		move += forward * -1.0f;
 	}
 
 	if (Input::IsKeyDown(KeyCode::KEYCODE_A))
 	{
-		move.x = -10 * dt;
+		move += glm::cross(forward, up) * -1.0f;
 	}
 	if (Input::IsKeyDown(KeyCode::KEYCODE_D))
 	{
-		move.x = 10 * dt;
+		move += glm::cross(forward, up);
 	}
-	
-	controller->move(move, 0.01f, dt, NULL);
+
+	if (glm::abs(move.x) > 0.1f || glm::abs(move.z) > 0.1f)
+	{
+		move = glm::normalize(move) * 10.0f * dt;
+	}
+
+	physx::PxVec3 moveVector(move.x, 0, move.z);
+
+	controller->move(moveVector, 0.01f, dt, NULL);
 	gameObject->SetPosition(Physics::ConvertPosition(controller->getPosition()));
 }

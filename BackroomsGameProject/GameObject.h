@@ -32,7 +32,9 @@ public:
 
 	virtual void Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 
-	glm::mat4 GetModelMatrix(glm::mat4 parent);
+	glm::mat4 GetModelMatrix(glm::mat4 parent) const;
+
+	glm::vec3 GetForward() const;
 
 	inline glm::vec3 GetPosition() const { return Position; }
 

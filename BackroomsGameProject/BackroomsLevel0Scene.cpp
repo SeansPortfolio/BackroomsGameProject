@@ -169,19 +169,20 @@ void BackroomsLevel0Scene::Update(float dt)
 
 	auto mouseVector = Input::GetMouseMoveVector();
 	auto cam = Player->GetComponent<CameraComponent>();
+	auto rotation = Player->GetRotation();
 
-	cam->Yaw += mouseVector.x * 100.0f * dt;
-	cam->Pitch -= mouseVector.y * 100.0f * dt;
+	rotation.y += mouseVector.x * 100.0f * dt;
+	rotation.x -= mouseVector.y * 100.0f * dt;
 
-	
 	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (cam->Pitch > 80.0f)
+	if (rotation.x > 80.0f)
 	{
-		cam->Pitch = 80.0f;
+		rotation.x = 80.0f;
 	}
-	if (cam->Pitch < -80.0f)
+	if (rotation.x < -80.0f)
 	{
-		cam->Pitch = -80.0f;
+		rotation.x = -80.0f;
 	}
 	
+	Player->SetRotation(rotation);
 }

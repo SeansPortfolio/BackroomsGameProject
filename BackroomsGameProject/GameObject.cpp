@@ -53,7 +53,7 @@ void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 p
 	}
 }
 
-glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent)
+glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent) const
 {
 	glm::mat4 modelMatrix = glm::mat4(parent);
 
@@ -64,4 +64,13 @@ glm::mat4 GameObject::GetModelMatrix(glm::mat4 parent)
 	modelMatrix = glm::scale(modelMatrix, Scale);
 
 	return modelMatrix;
+}
+
+glm::vec3 GameObject::GetForward() const
+{
+	glm::vec3 forward;
+	forward.x = cos(glm::radians(Rotation.y)) * cos(glm::radians(Rotation.x));
+	forward.y = sin(glm::radians(Rotation.x));
+	forward.z = sin(glm::radians(Rotation.y)) * cos(glm::radians(Rotation.x));
+	return glm::normalize(forward);
 }

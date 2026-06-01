@@ -15,9 +15,6 @@ public:
 
 	virtual void Update(float dt);
 
-	virtual inline ComponentType GetType() const { return ComponentType::Rigidbody; }
-
-
 private:
 
 

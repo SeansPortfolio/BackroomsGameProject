@@ -144,9 +144,9 @@ void BackroomsLevel0Scene::Load()
 	auto model = Resources::Instance->GetModel("RedCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-	auto player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
-	player->AddComponent<CharacterControllerComponent>();
-	SceneObjects.push_back(player);
+	Player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
+	Player->AddComponent<CharacterControllerComponent>();
+	SceneObjects.push_back(Player);
 
 	delete wallCollider;
 	delete floorCollider;
@@ -165,6 +165,9 @@ void BackroomsLevel0Scene::Update(float dt)
 
 	auto mouseVector = Input::GetMouseMoveVector();
 
+	SceneCam.Position = Player->GetPosition();
+
+
 	SceneCam.Yaw += mouseVector.x * 100.0f * dt;
 	SceneCam.Pitch -= mouseVector.y * 100.0f * dt;
 
@@ -177,22 +180,4 @@ void BackroomsLevel0Scene::Update(float dt)
 	{
 		SceneCam.Pitch = -80.0f;
 	}
-
-	if (Input::IsKeyDown(KeyCode::KEYCODE_W))
-	{
-		SceneCam.Position += SceneCam.Forward * 10.0f * dt;
-	}
-	if (Input::IsKeyDown(KeyCode::KEYCODE_S))
-	{
-		SceneCam.Position -= SceneCam.Forward * 10.0f * dt;
-	}
-	if (Input::IsKeyDown(KeyCode::KEYCODE_A))
-	{
-		SceneCam.Position -= glm::normalize(glm::cross(SceneCam.Forward, SceneCam.Up)) * 20.0f * dt;
-	}
-	if (Input::IsKeyDown(KeyCode::KEYCODE_D))
-	{
-		SceneCam.Position += glm::normalize(glm::cross(SceneCam.Forward, SceneCam.Up)) * 20.0f * dt;
-	}
-
 }

@@ -22,13 +22,24 @@ void CharacterControllerComponent::Update(float dt)
 {
 	physx::PxVec3 move(0, 0, 0);
 
-
 	if (Input::IsKeyDown(KeyCode::KEYCODE_W))
 	{
+		move.z = 10 * dt;
+	}
+	if (Input::IsKeyDown(KeyCode::KEYCODE_S))
+	{
+		move.z = -10 * dt;
+	}
+
+	if (Input::IsKeyDown(KeyCode::KEYCODE_A))
+	{
+		move.x = -10 * dt;
+	}
+	if (Input::IsKeyDown(KeyCode::KEYCODE_D))
+	{
 		move.x = 10 * dt;
-		move.y = 0;
-		move.z = 0;
 	}
 	
 	controller->move(move, 0.01f, dt, NULL);
+	gameObject->SetPosition(Physics::ConvertPosition(controller->getPosition()));
 }

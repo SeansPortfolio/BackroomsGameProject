@@ -73,6 +73,11 @@ glm::vec3 Physics::ConvertPosition(physx::PxVec3 pos)
 	return glm::vec3(pos.x, pos.y, pos.z);
 }
 
+glm::vec3 Physics::ConvertPosition(physx::PxExtendedVec3 pos)
+{
+	return glm::vec3(pos.x, pos.y, pos.z);
+}
+
 physx::PxQuat Physics::ConvertRotation(glm::vec3 rot)
 {
 	glm::quat quaternion = glm::quat(glm::vec3(

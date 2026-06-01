@@ -21,6 +21,7 @@ public:
 
 private:
 
+	std::shared_ptr<GameObject> Player;
 
 };
 

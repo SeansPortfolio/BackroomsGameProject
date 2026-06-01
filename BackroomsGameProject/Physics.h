@@ -40,6 +40,8 @@ public:
 
 	static glm::vec3 ConvertPosition(physx::PxVec3 pos);
 
+	static glm::vec3 ConvertPosition(physx::PxExtendedVec3 pos);
+
 	static physx::PxQuat ConvertRotation(glm::vec3 rot);
 
 	static glm::vec3 ConvertRotation(physx::PxQuat rot);

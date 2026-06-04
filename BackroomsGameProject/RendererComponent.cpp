@@ -15,6 +15,10 @@ void RendererComponent::Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm:
 {
 	shader->Bind();
 
+	shader->SetVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader->SetVec3("lightPos", glm::vec3(5.0f, 2.5f, 5.0f));
+
+
 	shader->SetMat4("Projection", projectionMatrix);
 	shader->SetMat4("View", viewMatrix);
 	shader->SetMat4("Model", modelMatrix);

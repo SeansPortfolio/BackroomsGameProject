@@ -18,7 +18,7 @@ void BackroomsLevel0Scene::Load()
 	// create the floor
 	{
 		auto model = Resources::Instance->GetModel("FloorCeiling");
-		auto shader = Resources::Instance->GetShader("UnlitTexture");
+		auto shader = Resources::Instance->GetShader("LitTexture");
 
 		for (int x = 0; x < mapSize; x++)
 		{
@@ -45,7 +45,7 @@ void BackroomsLevel0Scene::Load()
 	// create the walls
 	{
 		auto model = Resources::Instance->GetModel("Wall");
-		auto shader = Resources::Instance->GetShader("UnlitTexture");
+		auto shader = Resources::Instance->GetShader("LitTexture");
 
 		for (int x = 0; x < mapSize; x++)
 		{
@@ -88,7 +88,7 @@ void BackroomsLevel0Scene::Load()
 	{
 		auto model = Resources::Instance->GetModel("Wall");
 		auto door = Resources::Instance->GetModel("DoorFrame");
-		auto shader = Resources::Instance->GetShader("UnlitTexture");
+		auto shader = Resources::Instance->GetShader("LitTexture");
 
 		int x = 3 * 10;
 		for (int z = 0; z < mapSize; z++)
@@ -117,7 +117,7 @@ void BackroomsLevel0Scene::Load()
 	{
 		auto model = Resources::Instance->GetModel("Wall");
 		auto door = Resources::Instance->GetModel("DoorFrame");
-		auto shader = Resources::Instance->GetShader("UnlitTexture");
+		auto shader = Resources::Instance->GetShader("LitTexture");
 
 		int x = 6 * 10;
 		for (int z = 0; z < mapSize; z++)
@@ -142,8 +142,19 @@ void BackroomsLevel0Scene::Load()
 		SceneObjects.push_back(doorFrame);
 	}
 
-	auto model = Resources::Instance->GetModel("RedCube");
+	auto model = Resources::Instance->GetModel("WhiteCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
+
+
+	auto lightSource = std::make_shared<GameObject>();
+	lightSource->SetPosition(glm::vec3(5.0f, 2.5f, 5.0f));
+	lightSource->AddComponent<RendererComponent>(model, shader);
+	SceneObjects.push_back(lightSource);
+
+
+
+
+
 
 	Player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
 	Player->AddComponent<CharacterControllerComponent>();

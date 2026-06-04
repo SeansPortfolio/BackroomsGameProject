@@ -70,7 +70,6 @@ bool ShaderProgram::Link(GLuint vertexShader, GLuint fragmentShader)
 
 bool ShaderProgram::Validate(GLuint program, GLuint check)
 {
-	
 	GLint success;
 	glGetShaderiv(program, check, &success);
 
@@ -78,12 +77,9 @@ bool ShaderProgram::Validate(GLuint program, GLuint check)
 	{
 		char infoLog[512];
 		glGetShaderInfoLog(program, 512, NULL, infoLog);
-		printf("Unable to compile vertex shader %s\n", infoLog);
+		printf("Unable to compile shader %s\n", infoLog);
 		return false;
 	}
-
-
-
 
 	return true;
 }

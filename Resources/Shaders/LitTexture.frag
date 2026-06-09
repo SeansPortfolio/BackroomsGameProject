@@ -8,7 +8,7 @@ struct PointLight
     vec3 color;
 };
 
-#define MAX_POINT_LIGHTS 16
+#define MAX_POINT_LIGHTS 2
 
 in vec3 SurfaceNormal;  
 in vec2 TexCoord;
@@ -40,7 +40,10 @@ vec3 CalculatePointLight(PointLight light)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * light.color;
     
-    return (ambient + diffuse + specular);
+    float length = distance(FragPos, light.position);
+    float attenuation = clamp(10.0f / length, 0.0f, 1.0f);
+
+    return (ambient + diffuse + specular) * attenuation;
 }
 
 

@@ -145,28 +145,21 @@ void BackroomsLevel0Scene::Load()
 	auto model = Resources::Instance->GetModel("WhiteCube");
 	auto shader = Resources::Instance->GetShader("UnlitTexture");
 
-
 	auto lightSource = std::make_shared<GameObject>();
 	lightSource->SetPosition(glm::vec3(5.0f, 2.5f, 5.0f));
 	lightSource->AddComponent<RendererComponent>(model, shader);
 	SceneObjects.push_back(lightSource);
-
 
 	lightSource = std::make_shared<GameObject>();
 	lightSource->SetPosition(glm::vec3(75.0f, 2.5f, 75.0f));
 	lightSource->AddComponent<RendererComponent>(model, shader);
 	SceneObjects.push_back(lightSource);
 
-
-
-
-
 	Player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
 	Player->AddComponent<CharacterControllerComponent>();
 	Player->AddComponent<CameraComponent>();
 
 	SceneCam = Player->GetComponent<CameraComponent>();
-
 	SceneObjects.push_back(Player);
 
 	delete wallCollider;

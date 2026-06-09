@@ -21,6 +21,6 @@ void Scene::Render(float aspectRatio)
 
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{
-		SceneObjects[i]->Render(model, viewMatrix, projectionMatrix);
+		SceneObjects[i]->Render(SceneCam->GetPosition(), model, viewMatrix, projectionMatrix);
 	}
 }

@@ -37,19 +37,19 @@ void GameObject::Update(float dt)
 	}
 }
 
-void GameObject::Render(glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void GameObject::Render(glm::vec3 eyePos, glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
 	auto modelMatrix = GetModelMatrix(parentModel);
 
 	for (const auto& pair : ComponentTypeMap)
 	{
-		pair.second->Render(modelMatrix, viewMatrix, projectionMatrix);
+		pair.second->Render(eyePos, modelMatrix, viewMatrix, projectionMatrix);
 	}
 
 	int numChildren = Children.size();
 	for (int i = 0; i < numChildren; i++)
 	{
-		Children[i]->Render(modelMatrix, viewMatrix, projectionMatrix);
+		Children[i]->Render(eyePos, modelMatrix, viewMatrix, projectionMatrix);
 	}
 }
 

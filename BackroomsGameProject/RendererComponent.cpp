@@ -11,14 +11,16 @@ void RendererComponent::Update(float dt)
 	// nothing to be done.
 }
 
-void RendererComponent::Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void RendererComponent::Render(glm::vec3 eyePos, glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
 	shader->Bind();
+
+	shader->SetVec3("viewPos", eyePos);
 
 	shader->SetVec3("pointLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader->SetVec3("pointLights[0].position", glm::vec3(75.0f, 2.5f, 75.0f));
 
-	shader->SetFloat("pointLights[0].constant", 1.0f);
+	shader->SetFloat("pointLights[0].constant", 1);
 	shader->SetFloat("pointLights[0].linear", 0.09f);
 	shader->SetFloat("pointLights[0].exponent", 0.032f);
 

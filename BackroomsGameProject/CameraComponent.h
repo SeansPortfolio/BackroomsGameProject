@@ -17,6 +17,8 @@ public:
 
 	glm::mat4 GetProjectionMatrix(float aspectRatio);
 
+	glm::vec3 GetPosition();
+
 	glm::vec3 Up;
 };
 

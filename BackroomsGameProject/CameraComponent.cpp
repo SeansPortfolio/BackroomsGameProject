@@ -22,3 +22,8 @@ glm::mat4 CameraComponent::GetProjectionMatrix(float aspectRatio)
 {
 	return glm::perspective(glm::radians(90.0f), aspectRatio, 0.1f, 1000.0f);
 }
+
+glm::vec3 CameraComponent::GetPosition()
+{
+	return gameObject->GetPosition();
+}

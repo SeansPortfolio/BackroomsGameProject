@@ -152,6 +152,11 @@ void BackroomsLevel0Scene::Load()
 	SceneObjects.push_back(lightSource);
 
 
+	lightSource = std::make_shared<GameObject>();
+	lightSource->SetPosition(glm::vec3(75.0f, 2.5f, 75.0f));
+	lightSource->AddComponent<RendererComponent>(model, shader);
+	SceneObjects.push_back(lightSource);
+
 
 
 

@@ -6,6 +6,10 @@ struct PointLight
 {
     vec3 position;
     vec3 color;
+
+    float constant;
+    float linear;
+    float exponent;
 };
 
 #define MAX_POINT_LIGHTS 2
@@ -41,7 +45,10 @@ vec3 CalculatePointLight(PointLight light)
     vec3 specular = specularStrength * spec * light.color;
     
     float length = distance(FragPos, light.position);
-    float attenuation = clamp(10.0f / length, 0.0f, 1.0f);
+    float attenuation = 1.0f /
+        (light.constant +
+        light.linear * length +
+        light.exponent * length * length);
 
     return (ambient + diffuse + specular) * attenuation;
 }

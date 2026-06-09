@@ -18,8 +18,16 @@ void RendererComponent::Render(glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm:
 	shader->SetVec3("pointLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader->SetVec3("pointLights[0].position", glm::vec3(75.0f, 2.5f, 75.0f));
 
+	shader->SetFloat("pointLights[0].constant", 1.0f);
+	shader->SetFloat("pointLights[0].linear", 0.09f);
+	shader->SetFloat("pointLights[0].exponent", 0.032f);
+
 	shader->SetVec3("pointLights[1].color", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader->SetVec3("pointLights[1].position", glm::vec3(5.0f, 2.5f, 5.0f));
+
+	shader->SetFloat("pointLights[1].constant", 1.0f);
+	shader->SetFloat("pointLights[1].linear", 0.09f);
+	shader->SetFloat("pointLights[1].exponent", 0.032f);
 
 	shader->SetMat4("Projection", projectionMatrix);
 	shader->SetMat4("View", viewMatrix);

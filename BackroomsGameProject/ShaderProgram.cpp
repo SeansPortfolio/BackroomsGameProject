@@ -14,6 +14,12 @@ void ShaderProgram::SetInt(const char* name, const int value) const
 	glUniform1i(location, value);
 }
 
+void ShaderProgram::SetFloat(const char* name, const float value) const
+{
+	auto location = glGetUniformLocation(ShaderProgram, name);
+	glUniform1f(location, value);
+}
+
 void ShaderProgram::SetVec3(const char* name, const glm::vec3& value) const
 {
 	auto location = glGetUniformLocation(ShaderProgram, name);

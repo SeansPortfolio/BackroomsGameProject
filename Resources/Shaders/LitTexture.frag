@@ -7,6 +7,8 @@ struct PointLight
     vec3 position;
     vec3 color;
 
+    float radius;
+
     float constant;
     float linear;
     float exponent;
@@ -45,12 +47,22 @@ vec3 CalculatePointLight(PointLight light)
     vec3 specular = specularStrength * spec * light.color;
     
     float length = distance(FragPos, light.position);
-    float attenuation = 1.0f /
-        (light.constant +
-        light.linear * length +
-        light.exponent * length * length);
 
-    return (ambient + diffuse + specular) * attenuation;
+    if(length <= light.radius)
+    {
+        return (ambient + diffuse + specular);
+    }
+    else
+    {
+        length = length - light.radius;
+
+        float attenuation = 1.0f /
+            (light.constant +
+            light.linear * length +
+            light.exponent * length * length);
+
+        return (ambient + diffuse + specular) * attenuation;
+    }
 }
 
 

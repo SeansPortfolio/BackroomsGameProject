@@ -1,6 +1,15 @@
 #version 330 core
 
-out vec4 FragColor;
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTexCoord;
+layout (location = 2) in vec3 aNormal;
+
+out vec2 TexCoord;
+out vec3 Color;
+
+uniform mat4 Model;
+uniform mat4 View;
+uniform mat4 Projection;
 
 struct PointLight
 {
@@ -16,16 +25,11 @@ struct PointLight
 
 #define MAX_POINT_LIGHTS 4
 
-in vec3 SurfaceNormal;  
-in vec2 TexCoord;
-in vec3 FragPos;  
-
-// texture samplers
-uniform sampler2D image;
-
 // lighting colors
 uniform vec3 viewPos; 
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
+
+vec3 FragPos;
 
 vec3 CalculatePointLight(PointLight light)
 {
@@ -34,7 +38,7 @@ vec3 CalculatePointLight(PointLight light)
     vec3 ambient = ambientStrength * light.color;
 
   	// diffuse 
-    vec3 norm = normalize(SurfaceNormal);
+    vec3 norm = normalize(aNormal);
     vec3 lightDir = normalize(light.position - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * light.color;
@@ -65,17 +69,18 @@ vec3 CalculatePointLight(PointLight light)
     }
 }
 
-
 void main()
 {
-    // texture
-    vec4 objectColor = texture(image, TexCoord);
-    vec3 result = vec3(0, 0, 0);
+   gl_Position = Projection * View * Model * vec4(aPos, 1.0);
+   TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+   FragPos = vec3(Model * vec4(aPos, 1.0));
 
-    for(int i = 0; i < MAX_POINT_LIGHTS; i++)
-    {
-        result += CalculatePointLight(pointLights[i]);
-    }
+   vec3 result = vec3(0, 0, 0);
 
-    FragColor = vec4(result, 1.0) * objectColor;
+   for(int i = 0; i < MAX_POINT_LIGHTS; i++)
+   {
+       result += CalculatePointLight(pointLights[i]);
+   }
+
+   Color = result;
 }

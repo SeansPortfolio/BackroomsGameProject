@@ -49,8 +49,6 @@ private:
 
 	int height;
 
-	float test;
-
 	const char* name;
 
 	Scene* gameScene;

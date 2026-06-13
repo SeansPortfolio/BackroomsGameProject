@@ -104,6 +104,7 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PointLightComponent.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -132,6 +133,7 @@ XCOPY "$(SolutionDir)Resources" "$(MSBuildProjectDirectory)\Resources" /S /Y</Co
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="PointLightComponent.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />

@@ -5,7 +5,6 @@ RendererComponent::RendererComponent(GameObject* gameObject, std::shared_ptr<Mod
 	SetShader(shader);
 	SetModel(model);
 
-
 	shader->Bind();
 
 	shader->SetVec3("pointLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));

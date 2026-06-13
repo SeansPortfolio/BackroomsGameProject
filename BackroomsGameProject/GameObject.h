@@ -12,6 +12,7 @@
 #include "StaticRigidbodyComponent.h"
 #include "DynamicRigidbodyComponent.h"
 #include "CharacterControllerComponent.h"
+#include "PointLightComponent.h"
 
 class Component;
 class RendererComponent;

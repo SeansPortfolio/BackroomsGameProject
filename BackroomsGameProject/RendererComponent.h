@@ -21,9 +21,6 @@ public:
 
 	void SetModel(std::shared_ptr<Model> model);
 
-private:
-
-
 	std::shared_ptr<ShaderProgram> shader;
 
 	std::shared_ptr<Model> model;

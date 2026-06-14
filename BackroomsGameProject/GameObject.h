@@ -67,7 +67,12 @@ public:
 		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
 
 		auto name = typeid(T).name();
-		return std::static_pointer_cast<T>(ComponentTypeMap[name]);
+		if (ComponentTypeMap.find(name) != ComponentTypeMap.end())
+		{
+			return std::static_pointer_cast<T>(ComponentTypeMap[name]);
+		}
+
+		return NULL;
 	}
 
 	template<typename T>

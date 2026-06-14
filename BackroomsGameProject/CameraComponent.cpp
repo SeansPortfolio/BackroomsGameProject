@@ -27,3 +27,8 @@ glm::vec3 CameraComponent::GetPosition()
 {
 	return gameObject->GetPosition();
 }
+
+glm::vec3 CameraComponent::GetForward()
+{
+	return gameObject->GetForward();
+}

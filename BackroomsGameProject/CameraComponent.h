@@ -19,6 +19,8 @@ public:
 
 	glm::vec3 GetPosition();
 
+	glm::vec3 GetForward();
+
 	glm::vec3 Up;
 };
 

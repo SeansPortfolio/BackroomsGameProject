@@ -34,7 +34,7 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 		SceneObjects[i]->Render(model);
 	}
 
-	auto lights = GetAllComponents<PointLightComponent>();
+	auto pointLights = GetAllComponents<PointLightComponent>();
 	auto renderers = GetAllComponents<RendererComponent>();
 
 	for (auto& renderer : renderers)
@@ -46,12 +46,12 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 		shader->SetMat4("View", viewMatrix);
 		shader->SetVec3("viewPos", camera->GetPosition());
 
-		auto numLights = lights.size();
-		shader->SetInt("TotalLights", numLights);
+		auto numLights = pointLights.size();
+		shader->SetInt("TotalPointLights", numLights); 
 
 		for (int i = 0; i < numLights; i++)
 		{
-			auto light = lights[i];
+			auto light = pointLights[i];
 
 			auto colorName = "pointLights[" + std::to_string(i) + "].color";
 			auto positionName = "pointLights[" + std::to_string(i) + "].position";
@@ -69,6 +69,20 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 			shader->SetFloat(linearName.c_str(), 0.09f);
 			shader->SetFloat(exponentName.c_str(), 0.032f);
 		}
+
+		shader->SetInt("TotalSpotLights", 1);
+
+		shader->SetVec3("spotLights[0].position", camera->GetPosition());
+		shader->SetVec3("spotLights[0].direction", camera->GetForward());
+		shader->SetVec3("spotLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader->SetVec3("spotLights[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader->SetVec3("spotLights[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader->SetVec3("spotLights[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader->SetFloat("spotLights[0].constant", 1.0f);
+		shader->SetFloat("spotLights[0].linear", 0.09f);
+		shader->SetFloat("spotLights[0].quadratic", 0.032f);
+		shader->SetFloat("spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
+		shader->SetFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
 
 		shader->Unbind();
 	}

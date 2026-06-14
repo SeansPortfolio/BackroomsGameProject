@@ -10,6 +10,8 @@ public:
 
 	~PointLightComponent();
 
+	glm::vec3 GetPosition();
+
 	glm::vec3 color;
 
 	float radius;

@@ -9,3 +9,8 @@ PointLightComponent::PointLightComponent(GameObject* gameObject, glm::vec3 color
 PointLightComponent::~PointLightComponent()
 {
 }
+
+glm::vec3 PointLightComponent::GetPosition()
+{
+	return gameObject->GetPosition();
+}

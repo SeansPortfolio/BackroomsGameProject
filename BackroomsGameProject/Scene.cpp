@@ -32,43 +32,32 @@ void Scene::Render(float aspectRatio)
 		auto shader = renderer->shader;
 		shader->Bind();
 
-
 		shader->SetMat4("Projection", projectionMatrix);
 		shader->SetMat4("View", viewMatrix);
 
+		auto numLights = lights.size();
+		shader->SetInt("TotalLights", numLights);
 
-		shader->SetVec3("pointLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader->SetVec3("pointLights[0].position", glm::vec3(5.0f, 2.5f, 5.0f));
+		for (int i = 0; i < numLights; i++)
+		{
+			auto light = lights[i];
 
-		shader->SetFloat("pointLights[0].constant", 1);
-		shader->SetFloat("pointLights[0].linear", 0.09f);
-		shader->SetFloat("pointLights[0].exponent", 0.032f);
-		shader->SetFloat("pointLights[0].radius", 20);
+			auto colorName = "pointLights[" + std::to_string(i) + "].color";
+			auto positionName = "pointLights[" + std::to_string(i) + "].position";
+			auto radiusName = "pointLights[" + std::to_string(i) + "].radius";
 
-		shader->SetVec3("pointLights[2].color", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader->SetVec3("pointLights[2].position", glm::vec3(75.0f, 2.5f, 5.0f));
+			auto constantName = "pointLights[" + std::to_string(i) + "].constant";
+			auto linearName = "pointLights[" + std::to_string(i) + "].linear";
+			auto exponentName = "pointLights[" + std::to_string(i) + "].exponent";
 
-		shader->SetFloat("pointLights[2].constant", 1);
-		shader->SetFloat("pointLights[2].linear", 0.09f);
-		shader->SetFloat("pointLights[2].exponent", 0.032f);
-		shader->SetFloat("pointLights[2].radius", 10);
+			shader->SetVec3(colorName.c_str(), light->color);
+			shader->SetVec3(positionName.c_str(), light->GetPosition());
+			shader->SetFloat(radiusName.c_str(), light->radius);
 
-		shader->SetVec3("pointLights[3].color", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader->SetVec3("pointLights[3].position", glm::vec3(5.0f, 2.5f, 75.0f));
-
-
-		shader->SetFloat("pointLights[3].constant", 1);
-		shader->SetFloat("pointLights[3].linear", 0.09f);
-		shader->SetFloat("pointLights[3].exponent", 0.032f);
-		shader->SetFloat("pointLights[3].radius", 5);
-
-		shader->SetVec3("pointLights[1].color", glm::vec3(1.0f, 1.0f, 0.1f));
-		shader->SetVec3("pointLights[1].position", glm::vec3(75.0f, 2.5f, 75.0f));
-
-		shader->SetFloat("pointLights[1].constant", 1.0f);
-		shader->SetFloat("pointLights[1].linear", 0.09f);
-		shader->SetFloat("pointLights[1].exponent", 0.032f);
-		shader->SetFloat("pointLights[1].radius", 2);
+			shader->SetFloat(constantName.c_str(), 1);
+			shader->SetFloat(linearName.c_str(), 0.09f);
+			shader->SetFloat(exponentName.c_str(), 0.032f);
+		}
 
 		shader->Unbind();
 	}

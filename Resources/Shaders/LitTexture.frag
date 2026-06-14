@@ -14,16 +14,17 @@ struct PointLight
     float exponent;
 };
 
-#define MAX_POINT_LIGHTS 4
+#define MAX_POINT_LIGHTS 16
 
 in vec3 SurfaceNormal;  
 in vec2 TexCoord;
 in vec3 FragPos;  
 
 // texture samplers
-uniform sampler2D image;
+uniform sampler2D BaseTexture;
 
 // lighting colors
+uniform int TotalLights;
 uniform vec3 viewPos; 
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 
@@ -69,10 +70,10 @@ vec3 CalculatePointLight(PointLight light)
 void main()
 {
     // texture
-    vec4 objectColor = texture(image, TexCoord);
+    vec4 objectColor = texture(BaseTexture, TexCoord);
     vec3 result = vec3(0, 0, 0);
 
-    for(int i = 0; i < MAX_POINT_LIGHTS; i++)
+    for(int i = 0; i < TotalLights && i < MAX_POINT_LIGHTS; i++)
     {
         result += CalculatePointLight(pointLights[i]);
     }

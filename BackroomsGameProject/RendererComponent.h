@@ -15,7 +15,7 @@ public:
 
 	virtual void Update(float dt);
 
-	virtual void Render(glm::vec3 eyePos, glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
+	virtual void Render(glm::mat4 modelMatrix);
 
 	void SetShader(std::shared_ptr<ShaderProgram> shader);
 

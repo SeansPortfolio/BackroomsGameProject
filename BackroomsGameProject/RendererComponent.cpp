@@ -11,14 +11,13 @@ void RendererComponent::Update(float dt)
 	// nothing to be done.
 }
 
-void RendererComponent::Render(glm::vec3 eyePos, glm::mat4 modelMatrix, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void RendererComponent::Render(glm::mat4 modelMatrix)
 {
 	shader->Bind();
-	shader->SetVec3("viewPos", eyePos);
 
 	shader->SetMat4("Model", modelMatrix);
-
 	model->Render();
+
 	shader->Unbind();
 }
 

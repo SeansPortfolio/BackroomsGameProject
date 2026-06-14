@@ -161,7 +161,7 @@ void BackroomsLevel0Scene::Load()
 	Player->AddComponent<CharacterControllerComponent>();
 	Player->AddComponent<CameraComponent>();
 
-	SceneCam = Player->GetComponent<CameraComponent>();
+	Player->GetComponent<CameraComponent>();
 	SceneObjects.push_back(Player);
 
 	delete wallCollider;

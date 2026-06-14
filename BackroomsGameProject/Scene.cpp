@@ -10,18 +10,28 @@ void Scene::Update(float dt)
 
 void Scene::Render(float aspectRatio)
 {
-	if (SceneCam == nullptr)
+	auto cameras = GetAllComponents<CameraComponent>();
+
+	if (cameras.size() == 0)
 	{
 		return;
 	}
 
+	for (auto& cam : cameras)
+	{
+		Render(cam, aspectRatio);
+	}
+}
+
+void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
+{
 	glm::mat4 model(1.0f);
-	glm::mat4 viewMatrix = SceneCam->GetViewMatrix();
-	glm::mat4 projectionMatrix = SceneCam->GetProjectionMatrix(aspectRatio);
+	glm::mat4 viewMatrix = camera->GetViewMatrix();
+	glm::mat4 projectionMatrix = camera->GetProjectionMatrix(aspectRatio);
 
 	for (int i = 0; i < SceneObjects.size(); i++)
 	{
-		SceneObjects[i]->Render(SceneCam->GetPosition(), model, viewMatrix, projectionMatrix);
+		SceneObjects[i]->Render(model);
 	}
 
 	auto lights = GetAllComponents<PointLightComponent>();
@@ -34,6 +44,7 @@ void Scene::Render(float aspectRatio)
 
 		shader->SetMat4("Projection", projectionMatrix);
 		shader->SetMat4("View", viewMatrix);
+		shader->SetVec3("viewPos", camera->GetPosition());
 
 		auto numLights = lights.size();
 		shader->SetInt("TotalLights", numLights);
@@ -61,5 +72,7 @@ void Scene::Render(float aspectRatio)
 
 		shader->Unbind();
 	}
+
+
 
 }

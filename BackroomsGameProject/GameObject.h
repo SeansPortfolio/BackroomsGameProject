@@ -31,7 +31,7 @@ public:
 
 	virtual void Update(float dt);
 
-	virtual void Render(glm::vec3 eyePos, glm::mat4 parentModel, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
+	virtual void Render(glm::mat4 parentModel);
 
 	glm::mat4 GetModelMatrix(glm::mat4 parent) const;
 

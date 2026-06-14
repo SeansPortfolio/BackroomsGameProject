@@ -23,9 +23,10 @@ public:
 
 protected:
 
-	std::shared_ptr<CameraComponent> SceneCam;
-
 	std::vector<std::shared_ptr<GameObject>> SceneObjects;
+
+
+
 
 
 	template<typename T>
@@ -45,6 +46,11 @@ protected:
 
 		return result;
 	}
+
+
+private:
+
+	void Render(std::shared_ptr<CameraComponent> camera, float aspectRatio);
 
 };
 

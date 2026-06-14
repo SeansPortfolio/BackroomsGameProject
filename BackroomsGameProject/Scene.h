@@ -25,32 +25,11 @@ protected:
 
 	std::vector<std::shared_ptr<GameObject>> SceneObjects;
 
-
-
-
-
 	template<typename T>
-	inline std::vector<std::shared_ptr<T>> GetAllComponents()
-	{
-		static_assert(std::is_base_of<Component, T>::value, "Type must inherit from Component");
-
-		std::vector<std::shared_ptr<T>> result;
-		for (auto& gameObject : SceneObjects)
-		{
-			auto component = gameObject->GetComponent<T>();
-			if (component != NULL)
-			{
-				result.push_back(component);
-			}
-		}
-
-		return result;
-	}
-
+	inline std::vector<std::shared_ptr<T>> GetAllComponents();
 
 private:
 
 	void Render(std::shared_ptr<CameraComponent> camera, float aspectRatio);
 
 };
-

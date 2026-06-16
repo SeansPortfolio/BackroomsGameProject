@@ -74,15 +74,14 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 
 		shader->SetVec3("spotLights[0].position", camera->GetPosition());
 		shader->SetVec3("spotLights[0].direction", camera->GetForward());
+
 		shader->SetVec3("spotLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader->SetVec3("spotLights[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-		shader->SetVec3("spotLights[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader->SetVec3("spotLights[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader->SetFloat("spotLights[0].cutOff", glm::cos(glm::radians(40.0f)));
+		shader->SetFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(45.0f)));
+
 		shader->SetFloat("spotLights[0].constant", 1.0f);
-		shader->SetFloat("spotLights[0].linear", 0.09f);
-		shader->SetFloat("spotLights[0].quadratic", 0.032f);
-		shader->SetFloat("spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
-		shader->SetFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
+		shader->SetFloat("spotLights[0].linear", 0.04f);
+		shader->SetFloat("spotLights[0].quadratic", 0.002f);
 
 		shader->Unbind();
 	}

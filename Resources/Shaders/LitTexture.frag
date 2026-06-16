@@ -20,9 +20,9 @@ struct PointLight
 
 struct SpotLight 
 {
-    vec3 color;
     vec3 position;
     vec3 direction;
+    vec3 color;      
 
     float cutOff;
     float outerCutOff;
@@ -31,9 +31,6 @@ struct SpotLight
     float linear;
     float quadratic;
   
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;       
 };
 
 
@@ -55,12 +52,11 @@ uniform vec3 viewPos;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
-
 vec3 CalculateSpotLight(SpotLight light)
 {
     vec3 lightDir = normalize(light.position - FragPos);
     vec3 viewDir = normalize(viewPos - FragPos);
-
+     
     // diffuse shading
     float diff = max(dot(SurfaceNormal, lightDir), 0.0);
 
@@ -79,15 +75,10 @@ vec3 CalculateSpotLight(SpotLight light)
 
     // combine results
     
-    vec3 ambient = light.ambient;
-    vec3 diffuse = light.diffuse;
-    vec3 specular = light.specular;
+    vec3 ambient = light.color;
 
     ambient *= attenuation * intensity;
-    diffuse *= attenuation * intensity;
-    specular *= attenuation * intensity;
-
-    return (ambient + diffuse + specular);
+    return (ambient);
 }
 
 vec3 CalculatePointLight(PointLight light)

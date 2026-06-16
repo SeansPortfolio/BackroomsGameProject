@@ -147,9 +147,9 @@ void BackroomsLevel0Scene::Load()
 
 	Player = std::make_shared<GameObject>(glm::vec3(0, 2, 0));
 	Player->AddComponent<CharacterControllerComponent>();
+	Player->AddComponent<SpotLightComponent>(glm::vec3(1, 1, 1), glm::cos(glm::radians(40.0f)), glm::cos(glm::radians(45.0f)));
 	Player->AddComponent<CameraComponent>();
 
-	Player->GetComponent<CameraComponent>();
 	SceneObjects.push_back(Player);
 
 	delete wallCollider;

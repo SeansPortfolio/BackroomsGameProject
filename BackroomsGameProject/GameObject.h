@@ -13,9 +13,9 @@
 #include "DynamicRigidbodyComponent.h"
 #include "CharacterControllerComponent.h"
 #include "PointLightComponent.h"
+#include "SpotLightComponent.h"
 
 class Component;
-class RendererComponent;
 
 class GameObject
 {

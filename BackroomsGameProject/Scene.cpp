@@ -35,6 +35,7 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 	}
 
 	auto pointLights = GetAllComponents<PointLightComponent>();
+	auto spotLights = GetAllComponents<SpotLightComponent>();
 	auto renderers = GetAllComponents<RendererComponent>();
 
 	for (auto& renderer : renderers)
@@ -52,14 +53,15 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 		for (int i = 0; i < numLights; i++)
 		{
 			auto light = pointLights[i];
+			auto indexStr = std::to_string(i);
 
-			auto colorName = "pointLights[" + std::to_string(i) + "].color";
-			auto positionName = "pointLights[" + std::to_string(i) + "].position";
-			auto radiusName = "pointLights[" + std::to_string(i) + "].radius";
+			auto colorName = "pointLights[" + indexStr + "].color";
+			auto positionName = "pointLights[" + indexStr + "].position";
+			auto radiusName = "pointLights[" + indexStr + "].radius";
 
-			auto constantName = "pointLights[" + std::to_string(i) + "].constant";
-			auto linearName = "pointLights[" + std::to_string(i) + "].linear";
-			auto exponentName = "pointLights[" + std::to_string(i) + "].exponent";
+			auto constantName = "pointLights[" + indexStr + "].constant";
+			auto linearName = "pointLights[" + indexStr + "].linear";
+			auto exponentName = "pointLights[" + indexStr + "].exponent";
 
 			shader->SetVec3(colorName.c_str(), light->color);
 			shader->SetVec3(positionName.c_str(), light->GetPosition());
@@ -70,18 +72,35 @@ void Scene::Render(std::shared_ptr<CameraComponent> camera, float aspectRatio)
 			shader->SetFloat(exponentName.c_str(), 0.032f);
 		}
 
-		shader->SetInt("TotalSpotLights", 1);
+		numLights = spotLights.size();
+		shader->SetInt("TotalSpotLights", numLights);
+		for (int i = 0; i < numLights; i++)
+		{
+			auto light = spotLights[i];
+			auto indexStr = std::to_string(i);
 
-		shader->SetVec3("spotLights[0].position", camera->GetPosition());
-		shader->SetVec3("spotLights[0].direction", camera->GetForward());
+			auto colorName = "spotLights[" + indexStr + "].color";
+			auto positionName = "spotLights[" + indexStr + "].position";
+			auto directionName = "spotLights[" + indexStr + "].direction";
 
-		shader->SetVec3("spotLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader->SetFloat("spotLights[0].cutOff", glm::cos(glm::radians(40.0f)));
-		shader->SetFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(45.0f)));
+			auto cutOffName = "spotLights[" + indexStr + "].cutOff";
+			auto outerCutoffName = "spotLights[" + indexStr + "].outerCutOff";
 
-		shader->SetFloat("spotLights[0].constant", 1.0f);
-		shader->SetFloat("spotLights[0].linear", 0.04f);
-		shader->SetFloat("spotLights[0].quadratic", 0.002f);
+			auto constantName = "spotLights[" + indexStr + "].constant";
+			auto linearName = "spotLights[" + indexStr + "].linear";
+			auto exponentName = "spotLights[" + indexStr + "].exponent";
+
+			shader->SetVec3(colorName.c_str(), light->color);
+			shader->SetFloat(cutOffName.c_str(), light->cutoff);
+			shader->SetFloat(outerCutoffName.c_str(), light->outerCutoff);
+
+			shader->SetVec3(directionName.c_str(), light->GetForward());
+			shader->SetVec3(positionName.c_str(), light->GetPosition());
+
+			shader->SetFloat(constantName.c_str(), 1.0f);
+			shader->SetFloat(linearName.c_str(), 0.04f);
+			shader->SetFloat(exponentName.c_str(), 0.002f);
+		}
 
 		shader->Unbind();
 	}
